@@ -1,10 +1,18 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'App.Main.Bet';
+  title!: string;
+
+  public constructor(private titleService: Title) {}
+
+  ngOnInit() {
+    this.title = 'Bet.';
+    this.titleService.setTitle(this.title);
+  }
 }
