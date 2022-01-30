@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     TabMenuModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [Title],
   bootstrap: [AppComponent],
 })

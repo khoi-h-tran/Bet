@@ -1,0 +1,10 @@
+$backgroundColor: #121212;
+
+:host {
+  display: grid;
+  grid-template-columns: 448px, 1024, 448px;
+  grid-template-areas: "left center right";
+  height: 100vh; // 100% viewport height
+  width: 100vw; // 100% viewport width
+  background-color: $backgroundColor;
+}

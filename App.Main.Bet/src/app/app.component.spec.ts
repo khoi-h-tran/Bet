@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TabMenuModule } from 'primeng/tabmenu';
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './features/navbar/navbar.component';
 
 describe('AppComponent', () => {
   let titleService: Title;
@@ -10,14 +12,15 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [AppComponent],
+      imports: [RouterTestingModule, TabMenuModule],
+      declarations: [AppComponent, NavbarComponent],
       providers: [Title],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.componentInstance;
     titleService = TestBed.inject(Title);
+    fixture.detectChanges();
   });
 
   it('should create the app', () => {
@@ -29,7 +32,6 @@ describe('AppComponent', () => {
   });
 
   it('should render document tab title through Title service', () => {
-    fixture.detectChanges();
     expect(titleService.getTitle()).toBe('Bet.');
   });
 });

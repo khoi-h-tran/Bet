@@ -9,16 +9,24 @@ import { MenuItem } from 'primeng/api';
 })
 export class NavbarComponent implements OnInit {
   items!: MenuItem[];
+  activeItem!: MenuItem;
 
   constructor() {}
 
   ngOnInit() {
     this.items = [
-      { label: 'Home', icon: 'pi pi-fw pi-home' },
-      { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
-      { label: 'Edit', icon: 'pi pi-fw pi-pencil' },
-      { label: 'Documentation', icon: 'pi pi-fw pi-file' },
-      { label: 'Settings', icon: 'pi pi-fw pi-cog' },
+      {
+        label: 'Bet.',
+        icon: 'pi pi-fw pi-money-bill',
+        title: 'Bet on who you think will win!',
+      },
+      {
+        label: 'Stats.',
+        icon: 'pi pi-fw pi-chart-line',
+        title: 'Statistics on your previous betting performance.',
+      },
     ];
+
+    this.activeItem = this.items[0];
   }
 }

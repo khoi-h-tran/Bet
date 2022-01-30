@@ -1,0 +1,14 @@
+$navBarColor: #1e1e1e;
+
+:host {
+  width: 100vw;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: 448px, 1024px, 448px;
+  grid-template-areas: "left center right";
+  background-color: $navBarColor;
+}
+
+p-tabmenu-nav {
+  grid-area: center;
+}
