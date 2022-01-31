@@ -1,0 +1,14 @@
+<svg id="Logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="65" height="61" viewBox="0 0 65 61">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_11" data-name="Rectangle 11" width="65" height="61" transform="translate(277)" fill="gold" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Logo-2" data-name="Logo" transform="translate(-277)" clip-path="url(#clip-path)">
+    <g id="Logo-3" data-name="Logo" transform="translate(286.046 2.519)">
+      <path id="Path_198" data-name="Path 198" d="M75.711,69.645h0a5.38,5.38,0,0,0-7.611,0l-1.319,1.319-1.319-1.319a5.383,5.383,0,0,0-7.614,0h0a5.385,5.385,0,0,0,0,7.611l8.913,8.913.02-.02.02.02,3.047-3.048,3.5-3.5,2.359-2.36a5.38,5.38,0,0,0,0-7.611Z" transform="translate(-47.908 -44.568)" fill="gold"/>
+      <path id="Path_200" data-name="Path 200" d="M5.612,0H32.136a5.612,5.612,0,0,1,5.612,5.612V41.93a5.612,5.612,0,0,1-5.612,5.612H5.612A5.612,5.612,0,0,1,0,41.93V5.612A5.612,5.612,0,0,1,5.612,0Z" transform="translate(0 8.863)" fill="none" stroke="#ffd54f" stroke-linecap="round" stroke-width="5.737"/>
+      <path id="Path_199" data-name="Path 199" d="M85.736,90.18l1.181.065a5.615,5.615,0,0,0,5.912-5.287L94.843,48.7a5.617,5.617,0,0,0-5.287-5.914L63.054,41.3a5.612,5.612,0,0,0-5.912,5.287l-.2,3.552" transform="translate(-47.99 -41.295)" fill="none" stroke="#ffd54f" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.737"/>
+    </g>
+  </g>
+</svg>

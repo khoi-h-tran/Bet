@@ -4,11 +4,26 @@ $navBarColor: #1e1e1e;
   width: 100vw;
   height: fit-content;
   display: grid;
-  grid-template-columns: 448px, 1024px, 448px;
-  grid-template-areas: "left center right";
+  grid-template-columns: repeat(
+    12,
+    1fr
+  ); // 12 columns is the best practice as it is divisible by many numbers (i.e. 1, 2, 3, 4, 6)
   background-color: $navBarColor;
 }
 
-p-tabmenu-nav {
-  grid-area: center;
+p-tabmenu {
+  display: grid;
+  grid-column-start: 3; // starts at 1
+  grid-column-end: 11; // ends at 13
+  grid-row-start: 1;
+  justify-items: right;
+}
+
+.betlogo {
+  grid-column-start: 3;
+  grid-row-start: 1;
+}
+
+.betlogo img {
+  height: 40px;
 }
