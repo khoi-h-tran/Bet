@@ -36,33 +36,32 @@ describe('NavbarComponent', () => {
     expect(tabMenu).toBeTruthy();
 
     // check it has 3 tabs
-    const tabMenuNavElement: HTMLElement = fixture.nativeElement;
-    const tabMenuNav = tabMenuNavElement.querySelectorAll('.p-tabmenu-nav li');
+    const tabMenuNav = tabMenuElement.querySelectorAll('.p-tabmenu-nav li');
     expect(tabMenuNav.length).toEqual(3);
   });
 
   it('should create Bet. tab, with correct text, icon, and tooltip', () => {
-    const betTabElement: HTMLElement = fixture.nativeElement;
+    // Get the nav bar list items
+    const tabMenuNavElement: HTMLElement = fixture.nativeElement;
+    const tabMenuNav = tabMenuNavElement.querySelectorAll('.p-tabmenu-nav li');
 
-    // long way of referencing a nested css id
-    // const betTab = betTabElement.querySelector(
-    //   'li.p-element.p-tabmenuitem.p-highlight a'
-    // );
-
-    // short way of referencing a nested css id
-    const betTab = betTabElement.querySelector('.p-highlight a');
+    // Find the 2nd list item (for Stats.)
+    let betTab = tabMenuNav.item(0);
 
     expect(betTab).toBeTruthy();
     // tab text
     expect(betTab?.textContent).toEqual('Bet.');
+
+    // Find the anchor for Stats.
+    let betAnchor = betTab.querySelector('a');
+
     // tab icon
     expect(
-      betTab
+      betAnchor
         ?.querySelector('.p-menuitem-icon')
         ?.getAttribute('ng-reflect-ng-class')
     ).toEqual('pi pi-fw pi-money-bill');
-    // tooltip
-    expect(betTab?.getAttribute('title')).toEqual(
+    expect(betAnchor?.getAttribute('title')).toEqual(
       'Bet on who you think will win!'
     );
   });
@@ -73,8 +72,7 @@ describe('NavbarComponent', () => {
     const tabMenuNav = tabMenuNavElement.querySelectorAll('.p-tabmenu-nav li');
 
     // Find the 2nd list item (for Stats.)
-    let statsTab: Element = fixture.nativeElement;
-    statsTab = tabMenuNav.item(1);
+    let statsTab = tabMenuNav.item(1);
 
     expect(statsTab).toBeTruthy();
     // tab text
