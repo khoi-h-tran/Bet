@@ -2,8 +2,23 @@ $backgroundColor: #121212;
 
 :host {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
   height: 100vh; // 100% viewport height
   width: 100vw; // 100% viewport width
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
   background-color: $backgroundColor;
+}
+
+app-navbar {
+  grid-column-start: 1; // starts at 1
+  grid-column-end: 13; // ends at 13
+  grid-row-start: 1;
+  grid-row-end: 1;
+}
+
+.main {
+  grid-column: 3 / 11; // starts at 1
+  grid-row: 2 / 13;
+  background-color: white;
+  height: 100%;
 }

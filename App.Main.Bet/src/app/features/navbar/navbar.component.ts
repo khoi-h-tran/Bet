@@ -19,11 +19,13 @@ export class NavbarComponent implements OnInit {
         label: 'Bet.',
         icon: 'pi pi-fw pi-money-bill',
         title: 'Bet on who you think will win!',
+        routerLink: ['/bet'],
       },
       {
         label: 'Stats.',
         icon: 'pi pi-fw pi-chart-line',
         title: 'Statistics on your previous betting performance.',
+        routerLink: ['/stats'],
       },
     ];
 

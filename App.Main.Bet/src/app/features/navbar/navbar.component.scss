@@ -1,8 +1,10 @@
-$navBarColor: #1e1e1e;
+$navBarColor: #242424;
 
 :host {
-  width: 100vw;
-  height: fit-content;
+  width: 100%;
+  //height: fit-content;
+  height: 100%;
+  align-items: flex-end;
   display: grid;
   grid-template-columns: repeat(
     12,
@@ -13,18 +15,22 @@ $navBarColor: #1e1e1e;
 
 p-tabmenu {
   display: grid;
+  height: 100%;
   grid-column-start: 3; // starts at 1
   grid-column-end: 11; // ends at 13
   grid-row-start: 1;
   justify-items: right;
+  align-items: end;
 }
 
-.betlogo {
+.betLogo {
   grid-column-start: 3;
   grid-row-start: 1;
-  padding-top: 2px;
+  align-self: center;
+  height: fit-content;
+  width: fit-content;
 }
 
-.betlogo img {
-  height: 35px;
+.betLogo img {
+  height: 50px;
 }

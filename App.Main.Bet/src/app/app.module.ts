@@ -10,9 +10,11 @@ import { environment } from '../environments/environment';
 import { NavbarComponent } from './features/navbar/navbar.component';
 
 import { TabMenuModule } from 'primeng/tabmenu';
+import { BetPageComponent } from './features/bet-page/bet-page.component';
+import { StatisticsPageComponent } from './features/statistics-page/statistics-page.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
+  declarations: [AppComponent, NavbarComponent, BetPageComponent, StatisticsPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

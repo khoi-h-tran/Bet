@@ -1,0 +1,10 @@
+$backgroundColor: white;
+
+:host {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  height: 100%; // 100% viewport height
+  width: 100%; // 100% viewport width
+  background-color: $backgroundColor;
+}
