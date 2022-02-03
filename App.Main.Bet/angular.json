@@ -111,5 +111,8 @@
       }
     }
   },
-  "defaultProject": "App.Main.Bet"
+  "defaultProject": "App.Main.Bet",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
