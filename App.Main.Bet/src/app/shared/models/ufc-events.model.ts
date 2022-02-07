@@ -11,32 +11,32 @@ export enum WeightClass {
   Featherweight = 'Featherweight',
   Lightweight = 'Lightweight',
   Welterweight = 'Welterweight',
+  Middleweight = 'Middleweight',
   LightHeavyweight = 'LightHeavyweight',
   Heavyweight = 'Heavyweight',
 }
 
-export interface Fighter {
+export interface IFighter {
   fighterName: string;
   fighterRecord: string;
   fighterImage: string; // Base64
 }
 
-export interface Event {
+export interface IEvent {
   eventTime: Date;
-  eventCard: UFCCardType;
   eventWeightClass: WeightClass;
-  eventFighter1: Fighter;
-  eventFighter2: Fighter;
+  eventFighter1: IFighter;
+  eventFighter2: IFighter;
 }
 
-export interface Card {
+export interface ICard {
   cardType: UFCCardType;
-  cardEvents: Array<Event>;
+  cardEvents: Event[];
 }
 
-export interface UFCEvents {
+export interface IUFCEvents {
   eventName: string;
   eventDate: Date;
   eventVenue: string;
-  eventCards: Array<Card>;
+  eventCards: ICard[];
 }

@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './app-state/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { NavbarComponent } from './features/navbar/navbar.component';
@@ -15,6 +14,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
 
 import { BetPageComponent } from './features/bet-page/bet-page.component';
 import { StatisticsPageComponent } from './features/statistics-page/statistics-page.component';
+
+import { betReducer } from './app-state/reducers/bet.reducer';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { StatisticsPageComponent } from './features/statistics-page/statistics-p
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot({ ufcEvents: betReducer }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     TabMenuModule,
   ],

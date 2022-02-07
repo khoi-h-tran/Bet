@@ -1,15 +1,7 @@
 import { createAction, props } from '@ngrx/store';
+import { IUFCEvents } from 'src/app/shared/models/ufc-events.model';
 
-export const betBets = createAction(
-  '[Bet] Bet Bets'
-);
-
-export const betBetsSuccess = createAction(
-  '[Bet] Bet Bets Success',
-  props<{ data: any }>()
-);
-
-export const betBetsFailure = createAction(
-  '[Bet] Bet Bets Failure',
-  props<{ error: any }>()
+export const retrievedUFCEvents = createAction(
+  '[UFC Events/API] Retrieve UFC Events Success',
+  props<{ ufcEvents: Readonly<IUFCEvents> }>()
 );
