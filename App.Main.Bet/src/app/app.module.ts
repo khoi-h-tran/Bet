@@ -16,19 +16,21 @@ import { BetPageComponent } from './features/bet-page/bet-page.component';
 import { StatisticsPageComponent } from './features/statistics-page/statistics-page.component';
 
 import { betReducer } from './app-state/reducers/bet.reducer';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     BetPageComponent,
+    NavbarComponent,
     StatisticsPageComponent,
   ],
   imports: [
     AccordionModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    AppRoutingModule,
+    HttpClientModule,
     StoreModule.forRoot({ ufcEvents: betReducer }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     TabMenuModule,
