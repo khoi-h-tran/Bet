@@ -7,6 +7,8 @@ import {
 
 import { BetService } from './bet.service';
 import { IUFCEvents } from '../../shared/models/ufc-events.model';
+import * as ufcTestDataJSON from '../../shared/test-data/UFCEventsTestData.json';
+import { ufcTestDataTS } from '../../shared/test-data/UFCEventsTestData';
 
 describe('BetService', () => {
   let betService: BetService;
@@ -27,32 +29,18 @@ describe('BetService', () => {
   });
 
   it('should return expected UFC Events (HttpClient called once)', (done: DoneFn) => {
-    const expectedUFCEvent: IUFCEvents[] = [
-      {
-        eventName: 'UFC 271',
-        eventDate: new Date('2022-02-12'),
-        eventVenue: 'Toyota Center',
-        eventCards: [],
-      },
-      {
-        eventName: 'UFC 272',
-        eventDate: new Date('2022-03-05'),
-        eventVenue: 'T-Mobile Arena',
-        eventCards: [],
-      },
-    ];
-
-    httpClientSpy.get.and.returnValue(asyncData(expectedUFCEvent));
+    httpClientSpy.get.and.returnValue(asyncData(ufcTestDataTS));
 
     betService.getUFCEvents().subscribe({
       next: (ufcEvents) => {
         expect(ufcEvents)
           .withContext('expected UFC events')
-          .toEqual(expectedUFCEvent);
+          .toEqual(ufcTestDataTS);
         done();
       },
       error: done.fail,
     });
+
     expect(httpClientSpy.get.calls.count()).withContext('one call').toBe(1);
   });
 

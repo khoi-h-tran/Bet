@@ -12,19 +12,16 @@ import { IUFCEvents } from 'src/app/shared/models/ufc-events.model';
   styleUrls: ['./bet-page.component.scss'],
 })
 export class BetPageComponent implements OnInit {
-  // ufcEvents: ReadonlyArray<IUFCEvents> = [];
   ufcEvents: ReadonlyArray<IUFCEvents> = [];
-
-  // ufcEvents$ = this.store.select(selectUFCEvents);
 
   constructor(private betService: BetService, private store: Store) {}
 
   ngOnInit(): void {
     this.betService.getUFCEvents().subscribe((ufcEvents) => {
       this.store.dispatch(retrievedUFCEvents({ ufcEvents }));
-      this.store.select(selectUFCEvents).subscribe((d) => (this.ufcEvents = d));
-
-      console.log(this.ufcEvents);
+      this.store
+        .select(selectUFCEvents)
+        .subscribe((ufcEvents) => (this.ufcEvents = ufcEvents));
     });
   }
 

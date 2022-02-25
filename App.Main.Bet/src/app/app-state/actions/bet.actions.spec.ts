@@ -1,8 +1,8 @@
-import * as fromBet from './bet.actions';
+import * as betActions from './bet.actions';
 
-describe('betBets', () => {
+describe('Bet Action', () => {
   it('should return an action', () => {
-    expect(fromBet.retrievedUFCEvents.type).toBe(
+    expect(betActions.retrievedUFCEvents.type).toBe(
       '[UFC Events/API] Retrieve UFC Events Success'
     );
   });

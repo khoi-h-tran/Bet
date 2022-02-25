@@ -1,4 +1,6 @@
-export const ufcEventsTestData = [
+import { IUFCEvents } from '../models/ufc-events.model';
+
+export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
   {
     eventName: 'UFC 271',
     eventDate: new Date('2022-02-12'),
@@ -45,7 +47,7 @@ export const ufcEventsTestData = [
         cardType: 'Preliminary Card',
         cardEvents: [
           {
-            eventTime: '2022-02-12T80:00:00.000Z',
+            eventTime: new Date('2022-02-12T80:00:00.000Z'),
             eventWeightClass: 'Heavyweight',
             eventFighter1: {
               fighterName: 'Andrei Arlovski',
@@ -61,7 +63,7 @@ export const ufcEventsTestData = [
             },
           },
           {
-            eventTime: '2022-02-12T80:00:00.000Z',
+            eventTime: new Date('2022-02-12T80:00:00.000Z'),
             eventWeightClass: 'Flyweight',
             eventFighter1: {
               fighterName: 'Roxanne Modaferri',
@@ -126,7 +128,7 @@ export const ufcEventsTestData = [
         cardType: 'Main Card',
         cardEvents: [
           {
-            eventTime: '2022-03-05T10:00:00.000Z',
+            eventTime: new Date('2022-03-05T10:00:00.000Z'),
             eventWeightClass: 'Welterweight',
             eventFighter1: {
               fighterName: 'Colby Covington',
@@ -142,7 +144,7 @@ export const ufcEventsTestData = [
             },
           },
           {
-            eventTime: '2022-03-05T10:00:00.000Z',
+            eventTime: new Date('2022-03-05T10:00:00.000Z'),
             eventWeightClass: 'Lightweight',
             eventFighter1: {
               fighterName: 'Rafaeldos Anjos',
@@ -163,7 +165,7 @@ export const ufcEventsTestData = [
         cardType: 'Preliminary Card',
         cardEvents: [
           {
-            eventTime: '2022-03-05T80:00:00.000Z',
+            eventTime: new Date('2022-03-05T80:00:00.000Z'),
             eventWeightClass: 'Lightweight',
             eventFighter1: {
               fighterName: 'Jalin Turner',
@@ -179,7 +181,7 @@ export const ufcEventsTestData = [
             },
           },
           {
-            eventTime: '2022-03-05T80:00:00.000Z',
+            eventTime: new Date('2022-03-05T80:00:00.000Z'),
             eventWeightClass: 'Strawweight',
             eventFighter1: {
               fighterName: 'Marina Rodriguez',

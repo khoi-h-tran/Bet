@@ -43,7 +43,7 @@ export interface IEvent {
 
 export interface ICard {
   cardType: string;
-  cardEvents: Event[];
+  cardEvents: IEvent[];
 }
 
 export interface IUFCEvents {
