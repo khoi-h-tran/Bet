@@ -22,15 +22,27 @@ export interface IFighter {
   fighterImage: string; // Base64
 }
 
+// export interface IEvent {
+//   eventTime: Date;
+//   eventWeightClass: WeightClass;
+//   eventFighter1: IFighter;
+//   eventFighter2: IFighter;
+// }
+
+// export interface ICard {
+//   cardType: UFCCardType;
+//   cardEvents: Event[];
+// }
+
 export interface IEvent {
   eventTime: Date;
-  eventWeightClass: WeightClass;
+  eventWeightClass: string;
   eventFighter1: IFighter;
   eventFighter2: IFighter;
 }
 
 export interface ICard {
-  cardType: UFCCardType;
+  cardType: string;
   cardEvents: Event[];
 }
 
