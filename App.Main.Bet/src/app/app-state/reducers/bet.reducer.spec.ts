@@ -21,6 +21,16 @@ describe('bet Reducer', () => {
     store = TestBed.inject(MockStore);
   });
 
+  it('should return the default state', () => {
+    const { initialState } = betReducers;
+    const action = {
+      type: 'Unknown',
+    };
+    const state = betReducers.betReducer(initialState, action);
+
+    expect(state).toBe(initialState);
+  });
+
   it('should reduce state with UFC Events', () => {
     expect(
       betReducers.betReducer(

@@ -9,36 +9,47 @@ import { ufcTestDataTS } from 'src/app/shared/test-data/UFCEventsTestData';
 import { BetService } from './bet.service';
 import { HttpClient } from '@angular/common/http';
 import { asyncData } from 'src/app/shared/test-helpers/async-observable-helpers';
+import { of } from 'rxjs';
+import { selectUFCEvents } from 'src/app/app-state/selectors/bet.selectors';
+import { retrievedUFCEvents } from 'src/app/app-state/actions/bet.actions';
 
 describe('BetPageComponent', () => {
   let component: BetPageComponent;
   let fixture: ComponentFixture<BetPageComponent>;
   let store: MockStore;
-
-  let betService: BetService;
-  let httpClientSpy: jasmine.SpyObj<HttpClient>;
-
-  const initialState = ufcTestDataTS;
+  let getUFCEventsSpy: jasmine.Spy;
 
   beforeEach(async () => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
+    // Create a fake BetService object with a `getUFCEvents()` spy
+    const betService = jasmine.createSpyObj('BetService', ['getUFCEvents']);
+
+    // Make the spy return a synchronous Observable with the test data
+    getUFCEventsSpy = betService.getUFCEvents.and.returnValue(
+      of(ufcTestDataTS)
+    );
+
     await TestBed.configureTestingModule({
       declarations: [BetPageComponent, Accordion, AccordionTab],
       imports: [AccordionModule, BrowserAnimationsModule],
       providers: [
-        provideMockStore({ initialState }),
-        BetService,
-        { provide: HttpClient, useValue: httpClientSpy },
+        provideMockStore({
+          selectors: [
+            {
+              selector: selectUFCEvents,
+              value: ufcTestDataTS,
+            },
+          ],
+        }),
+        { provide: BetService, useValue: betService },
       ],
     }).compileComponents();
 
     store = TestBed.inject(MockStore);
-    betService = TestBed.inject(BetService);
-    httpClientSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
-    httpClientSpy.get.and.returnValue(asyncData(ufcTestDataTS));
-
     fixture = TestBed.createComponent(BetPageComponent);
     component = fixture.componentInstance;
+
+    spyOn(store, 'dispatch').and.callThrough();
+
     fixture.detectChanges();
   });
 
@@ -46,12 +57,19 @@ describe('BetPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have ngOnInit load initial data on UFC Events', () => {
-    fixture.detectChanges();
+  it('should have retrieve event with bet service, action, and selector called', () => {
+    expect(getUFCEventsSpy.calls.any())
+      .withContext('getUFCEvents called')
+      .toBe(true);
+
+    expect(store.dispatch).toHaveBeenCalledWith(
+      retrievedUFCEvents({ ufcEvents: ufcTestDataTS })
+    );
+  });
+
+  it('should create bet page component with instantiated test data', () => {
     fixture.whenStable().then(() => {
       expect(component.ufcEvents).toEqual(ufcTestDataTS);
-      console.log('init data');
-      console.log(component.ufcEvents);
     });
   });
 
@@ -63,34 +81,15 @@ describe('BetPageComponent', () => {
   });
 
   it('should populate accordian headers', () => {
-    // let accordion: Accordion;
-
-    // const betPageElement: HTMLElement = fixture.nativeElement;
-
-    // fixture.detectChanges();
-    // fixture.whenRenderingDone().then(() => {
-    //   accordion = betPageElement.querySelector('.p-accordion');
-
-    //   console.log('test outputs: ');
-    //   console.log(accordion.initTabs);
-    //   console.log(accordion.tabs);
-    // });
-
-    const betPageElement: HTMLElement = fixture.nativeElement;
+    const betPageElement = fixture.nativeElement;
     fixture.whenRenderingDone().then(() => {
-      let betAccordian = betPageElement.querySelector('.p-accordion');
-      // Seems like the data to bind is not loading. Try running a service stub to get the data before pulling the accordian.
-      console.log('test outputs: ');
-      console.log(betAccordian);
-      console.log(component.ufcEvents);
+      let betAccordian = betPageElement.querySelectorAll(
+        '.p-accordion-header-text'
+      );
+
+      expect(betAccordian.length).toBe(2);
+      expect(betAccordian[0].textContent).toContain('UFC 271');
+      expect(betAccordian[1].textContent).toContain('UFC 272');
     });
-
-    // let betAccordian = betPageElement.querySelectorAll(
-    //   '.p-accordion-header-text'
-    // );
-
-    // .ng-reflect-header
-
-    // expect(betAccordian).toBeTruthy();
   });
 });
