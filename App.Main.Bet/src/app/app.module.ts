@@ -10,6 +10,9 @@ import { environment } from '../environments/environment';
 import { NavbarComponent } from './features/navbar/navbar.component';
 
 import { AccordionModule } from 'primeng/accordion';
+import { AvatarModule } from 'primeng/avatar';
+import { CardModule } from 'primeng/card';
+import { TabViewModule } from 'primeng/tabview';
 import { TabMenuModule } from 'primeng/tabmenu';
 
 import { BetPageComponent } from './features/bet-page/bet-page.component';
@@ -17,6 +20,8 @@ import { StatisticsPageComponent } from './features/statistics-page/statistics-p
 
 import { betReducer } from './app-state/reducers/bet.reducer';
 import { HttpClientModule } from '@angular/common/http';
+import { FightEventCardComponent } from './features/bet-page/fight-event-card/fight-event-card.component';
+import { FightEventComponent } from './features/bet-page/fight-event-card/fight-event/fight-event.component';
 
 @NgModule({
   declarations: [
@@ -24,16 +29,21 @@ import { HttpClientModule } from '@angular/common/http';
     BetPageComponent,
     NavbarComponent,
     StatisticsPageComponent,
+    FightEventCardComponent,
+    FightEventComponent,
   ],
   imports: [
     AccordionModule,
     AppRoutingModule,
+    AvatarModule,
     BrowserAnimationsModule,
     BrowserModule,
+    CardModule,
     HttpClientModule,
     StoreModule.forRoot({ ufcEvents: betReducer }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     TabMenuModule,
+    TabViewModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [Title],

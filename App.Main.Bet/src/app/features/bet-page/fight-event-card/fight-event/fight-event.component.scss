@@ -1,0 +1,40 @@
+$backgroundColor: #ccc9c3;
+
+// ::ng-deep .p-card-body {
+//   // display: grid;
+//   // grid-template-columns: repeat(12, 1fr);
+//   // grid-template-rows: repeat(12, 1fr);
+//   // height: 20;
+// }
+// :host {
+//   display: grid;
+// }
+
+// .cardContainer {
+//   display: grid;
+//   grid-template-columns: repeat(12, 1fr);
+//   grid-template-rows: repeat(12, 1fr);
+// }
+
+// .p-card .p-component {
+//   width: 10%;
+// }
+
+// ::ng-deep p-card p.component {
+//   height: 400px;
+//   grid-template-columns: repeat(12, 1fr);
+//   grid-template-rows: repeat(12, 1fr);
+// }
+
+::ng-deep .p-card {
+  margin-bottom: 5px;
+  // height: fit-content;
+}
+
+// ::ng-deep .p-card .p-card-body {
+//   margin-bottom: 100;
+// }
+
+// ::ng-deep .p-card {
+//   background-color: $backgroundColor;
+// }

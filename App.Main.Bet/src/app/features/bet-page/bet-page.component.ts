@@ -13,6 +13,8 @@ import { IUFCEvents } from 'src/app/shared/models/ufc-events.model';
 })
 export class BetPageComponent implements OnInit {
   ufcEvents: ReadonlyArray<IUFCEvents> = [];
+  // initial state of accordian headers (set up after ngOnInit to length of UFC events)
+  activeState!: boolean[];
 
   constructor(private betService: BetService, private store: Store) {}
 
@@ -25,11 +27,16 @@ export class BetPageComponent implements OnInit {
     });
   }
 
-  // initial state of accordian headers
-  activeState: boolean[] = [false, false, false];
+  // Sets the first tab open dynamically at run-time
+  // # of events (i.e. accordian headers unknown until get API call)
 
-  // toggles accordion headers (open and close)
-  toggle(index: number) {
-    this.activeState[index] = !this.activeState[index];
+  // TODO: Unit test this
+  ngAfterContentInit() {
+    // setting the specifc accordion tab we want open on rendering
+    this.activeState = new Array(this.ufcEvents.length);
+    this.activeState[0] = true;
+    for (let i = 1; i < this.ufcEvents.length; i++) {
+      this.activeState[i] = false;
+    }
   }
 }

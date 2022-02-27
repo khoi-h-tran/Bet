@@ -1,0 +1,5 @@
+<p-tabView>
+    <p-tabPanel *ngFor="let ufcEventCard of ufcEventCards; let i = index" header="{{ufcEventCard.cardType}}">
+        <app-fight-event [ufcFightEvents]="ufcEventCard.cardEvents"></app-fight-event>
+    </p-tabPanel>
+</p-tabView>
