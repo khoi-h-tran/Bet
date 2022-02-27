@@ -8,10 +8,9 @@ import { IEvent } from 'src/app/shared/models/ufc-events.model';
 })
 export class FightEventComponent implements OnInit {
   @Input() ufcFightEvents: IEvent[] = [];
+  @Input() eventTime: Date = new Date();
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.ufcFightEvents);
-  }
+  ngOnInit(): void {}
 }

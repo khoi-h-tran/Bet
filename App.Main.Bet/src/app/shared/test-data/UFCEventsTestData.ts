@@ -8,9 +8,9 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
     eventCards: [
       {
         cardType: 'Main Card',
+        eventTime: new Date('2022-02-12T10:00:00.000Z'),
         cardEvents: [
           {
-            eventTime: new Date('2022-02-12T10:00:00.000Z'),
             eventWeightClass: 'Middleweight',
             eventFighter1: {
               fighterName: 'Israel Adesanya',
@@ -26,7 +26,6 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
             },
           },
           {
-            eventTime: new Date('2022-02-12T10:00:00.000Z'),
             eventWeightClass: 'Heavyweight',
             eventFighter1: {
               fighterName: 'Derrick Lewis',
@@ -45,9 +44,9 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
       },
       {
         cardType: 'Preliminary Card',
+        eventTime: new Date('2022-02-12T10:00:00.000Z'),
         cardEvents: [
           {
-            eventTime: new Date('2022-02-12T80:00:00.000Z'),
             eventWeightClass: 'Heavyweight',
             eventFighter1: {
               fighterName: 'Andrei Arlovski',
@@ -63,7 +62,6 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
             },
           },
           {
-            eventTime: new Date('2022-02-12T80:00:00.000Z'),
             eventWeightClass: 'Flyweight',
             eventFighter1: {
               fighterName: 'Roxanne Modaferri',
@@ -82,9 +80,9 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
       },
       {
         cardType: 'Early Prelims',
+        eventTime: new Date('2022-02-12T60:00:00.000Z'),
         cardEvents: [
           {
-            eventTime: new Date('2022-02-12T60:00:00.000Z'),
             eventWeightClass: 'Bantamweight',
             eventFighter1: {
               fighterName: 'Mana Martinez',
@@ -100,7 +98,6 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
             },
           },
           {
-            eventTime: new Date('2022-02-12T60:00:00.000Z'),
             eventWeightClass: 'Lightweight',
             eventFighter1: {
               fighterName: 'Alexander Hernandez',
@@ -126,9 +123,9 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
     eventCards: [
       {
         cardType: 'Main Card',
+        eventTime: new Date('2022-03-05T10:00:00.000Z'),
         cardEvents: [
           {
-            eventTime: new Date('2022-03-05T10:00:00.000Z'),
             eventWeightClass: 'Welterweight',
             eventFighter1: {
               fighterName: 'Colby Covington',
@@ -144,7 +141,6 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
             },
           },
           {
-            eventTime: new Date('2022-03-05T10:00:00.000Z'),
             eventWeightClass: 'Lightweight',
             eventFighter1: {
               fighterName: 'Rafaeldos Anjos',
@@ -163,9 +159,9 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
       },
       {
         cardType: 'Preliminary Card',
+        eventTime: new Date('2022-02-12T10:00:00.000Z'),
         cardEvents: [
           {
-            eventTime: new Date('2022-03-05T80:00:00.000Z'),
             eventWeightClass: 'Lightweight',
             eventFighter1: {
               fighterName: 'Jalin Turner',
@@ -181,7 +177,6 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
             },
           },
           {
-            eventTime: new Date('2022-03-05T80:00:00.000Z'),
             eventWeightClass: 'Strawweight',
             eventFighter1: {
               fighterName: 'Marina Rodriguez',

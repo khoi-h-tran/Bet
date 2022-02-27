@@ -35,13 +35,13 @@ export interface IFighter {
 // }
 
 export interface IEvent {
-  eventTime: Date;
   eventWeightClass: string;
   eventFighter1: IFighter;
   eventFighter2: IFighter;
 }
 
 export interface ICard {
+  eventTime: Date;
   cardType: string;
   cardEvents: IEvent[];
 }

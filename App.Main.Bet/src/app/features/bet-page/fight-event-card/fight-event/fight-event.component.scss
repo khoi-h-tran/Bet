@@ -26,9 +26,55 @@ $backgroundColor: #ccc9c3;
 //   grid-template-rows: repeat(12, 1fr);
 // }
 
+// .ngx-cardStyle {
+//   margin-bottom: 5px;
+// }
+
 ::ng-deep .p-card {
   margin-bottom: 5px;
+  // height: 200px;
   // height: fit-content;
+}
+
+::ng-deep .p-card-content {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+}
+
+// ::ng-deep .eventTimeHeader {
+//   text-align: center;
+//   height: 100px;
+// }
+
+// .eventTimeHeader h1 {
+//   grid-column: 1/13;
+// }
+
+.fighter1Img {
+  grid-column: 1;
+}
+
+.fighter1Name {
+  grid-column: 2;
+  margin-left: 7px;
+}
+
+.fighter1Record {
+  grid-column: 4;
+}
+
+.fighter2Img {
+  grid-column: 9;
+}
+
+.fighter2Name {
+  grid-column: 10;
+  margin-left: 7px;
+}
+
+.fighter2Record {
+  grid-column: 12;
 }
 
 // ::ng-deep .p-card .p-card-body {
