@@ -62,7 +62,7 @@ describe('BetService', () => {
     });
   });
 
-  it('should return an error when the server returns a 404', (done: DoneFn) => {
+  it('should return an error when triggered by native event', (done: DoneFn) => {
     const errorResponse = new HttpErrorResponse({
       error: new Event('click'),
       status: 404,

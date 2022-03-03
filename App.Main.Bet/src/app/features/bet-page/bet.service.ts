@@ -27,7 +27,7 @@ export class BetService {
    *
    * @param operation - name of the operation that failed
    */
-  private handleError<T>(operation = 'operation') {
+  private handleError<T>(operation: string) {
     return (error: HttpErrorResponse): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
