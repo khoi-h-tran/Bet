@@ -12,6 +12,12 @@ import { asyncData } from 'src/app/shared/test-helpers/async-observable-helpers'
 import { of } from 'rxjs';
 import { selectUFCEvents } from 'src/app/app-state/selectors/bet.selectors';
 import { retrievedUFCEvents } from 'src/app/app-state/actions/bet.actions';
+import { FightEventCardComponent } from './fight-event-card/fight-event-card.component';
+import { FightEventComponent } from './fight-event-card/fight-event/fight-event.component';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TabViewModule } from 'primeng/tabview';
+import { CardModule } from 'primeng/card';
+import { AvatarModule } from 'primeng/avatar';
 
 describe('BetPageComponent', () => {
   let component: BetPageComponent;
@@ -29,8 +35,21 @@ describe('BetPageComponent', () => {
     );
 
     await TestBed.configureTestingModule({
-      declarations: [BetPageComponent, Accordion, AccordionTab],
-      imports: [AccordionModule, BrowserAnimationsModule],
+      declarations: [
+        Accordion,
+        AccordionTab,
+        BetPageComponent,
+        FightEventCardComponent,
+        FightEventComponent,
+      ],
+      imports: [
+        AccordionModule,
+        AvatarModule,
+        BrowserAnimationsModule,
+        CardModule,
+        TabMenuModule,
+        TabViewModule,
+      ],
       providers: [
         provideMockStore({
           selectors: [
@@ -68,28 +87,31 @@ describe('BetPageComponent', () => {
   });
 
   it('should create bet page component with instantiated test data', () => {
-    fixture.whenStable().then(() => {
-      expect(component.ufcEvents).toEqual(ufcTestDataTS);
-    });
+    expect(component.ufcEvents).toEqual(ufcTestDataTS);
   });
 
   it('should create accordian', () => {
     const betPageElement: HTMLElement = fixture.nativeElement;
 
     let betAccordian = betPageElement.querySelector('.p-accordion');
+
+    expect(component.activeState.length).toEqual(2);
+    expect(component.activeState).toEqual([true, false]);
     expect(betAccordian).toBeTruthy();
   });
 
   it('should populate accordian headers', () => {
     const betPageElement = fixture.nativeElement;
-    fixture.whenRenderingDone().then(() => {
-      let betAccordian = betPageElement.querySelectorAll(
-        '.p-accordion-header-text'
-      );
+    let betAccordianHeaders = betPageElement.querySelectorAll(
+      '.p-accordion-header-text'
+    );
 
-      expect(betAccordian.length).toBe(2);
-      expect(betAccordian[0].textContent).toContain('UFC 271');
-      expect(betAccordian[1].textContent).toContain('UFC 272');
-    });
+    expect(betAccordianHeaders.length).toBe(2);
+    expect(betAccordianHeaders[0].textContent).toEqual(
+      ' UFC 271 - Feb 12, 2022 '
+    );
+    expect(betAccordianHeaders[1].textContent).toContain(
+      ' UFC 272 - Mar 5, 2022 '
+    );
   });
 });

@@ -1,15 +1,3 @@
-<!-- No splitters used -->
-<!-- <p-card *ngFor="let ufcFightEvent of ufcFightEvents; let i = index" header="{{ufcFightEvent.eventWeightClass}} - {{ufcFightEvent.eventTime | date:'MMM d, y, h:mm a' }}">
-        <ng-template pTemplate="header"></ng-template>
-        <p-avatar image={{ufcFightEvent.eventFighter1.fighterImage}} styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
-        <p>{{ufcFightEvent.eventFighter1.fighterName}}</p>
-        <p>{{ufcFightEvent.eventFighter1.fighterRecord}}</p>
-</p-card> -->
-
-<!-- <p-card class="eventTimeHeader">
-        <h1>{{eventTime | date:'MMM d, y, h:mm a' }}</h1>
-</p-card> -->
-
 <p-card *ngFor="let ufcFightEvent of ufcFightEvents; let i = index" header="{{ufcFightEvent.eventWeightClass}}">       
         <ng-template pTemplate="header"></ng-template>
         <p-avatar class="fighter1Img" image={{ufcFightEvent.eventFighter1.fighterImage}} styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>

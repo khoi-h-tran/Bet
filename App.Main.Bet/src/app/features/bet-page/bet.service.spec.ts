@@ -61,4 +61,22 @@ describe('BetService', () => {
       },
     });
   });
+
+  it('should return an error when the server returns a 404', (done: DoneFn) => {
+    const errorResponse = new HttpErrorResponse({
+      error: new Event('click'),
+      status: 404,
+      statusText: 'Not Found',
+    });
+
+    httpClientSpy.get.and.returnValue(asyncError(errorResponse));
+
+    betService.getUFCEvents().subscribe({
+      next: (ufcEvents) => done.fail('expected on click event error'),
+      error: (error) => {
+        expect(error.message).toBe(undefined);
+        done();
+      },
+    });
+  });
 });

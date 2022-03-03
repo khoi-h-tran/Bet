@@ -3,12 +3,12 @@ import { IUFCEvents } from '../models/ufc-events.model';
 export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
   {
     eventName: 'UFC 271',
-    eventDate: new Date('2022-02-12'),
+    eventDate: new Date('2022/02/12'),
     eventVenue: 'Toyota Center',
     eventCards: [
       {
         cardType: 'Main Card',
-        eventTime: new Date('2022-02-12T10:00:00.000Z'),
+        eventTime: new Date('2022-02-12T22:00:00'),
         cardEvents: [
           {
             eventWeightClass: 'Middleweight',
@@ -44,7 +44,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
       },
       {
         cardType: 'Preliminary Card',
-        eventTime: new Date('2022-02-12T10:00:00.000Z'),
+        eventTime: new Date('2022-02-12T20:00:00'),
         cardEvents: [
           {
             eventWeightClass: 'Heavyweight',
@@ -80,7 +80,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
       },
       {
         cardType: 'Early Prelims',
-        eventTime: new Date('2022-02-12T60:00:00.000Z'),
+        eventTime: new Date('2022-02-12T18:00:00'),
         cardEvents: [
           {
             eventWeightClass: 'Bantamweight',
@@ -118,12 +118,12 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
   },
   {
     eventName: 'UFC 272',
-    eventDate: new Date('2022-03-05'),
+    eventDate: new Date('2022/03/05'),
     eventVenue: 'T-Mobile Arena',
     eventCards: [
       {
         cardType: 'Main Card',
-        eventTime: new Date('2022-03-05T10:00:00.000Z'),
+        eventTime: new Date('2022-03-05T19:00:00'),
         cardEvents: [
           {
             eventWeightClass: 'Welterweight',
@@ -159,7 +159,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
       },
       {
         cardType: 'Preliminary Card',
-        eventTime: new Date('2022-02-12T10:00:00.000Z'),
+        eventTime: new Date('2022-03-05T17:00:00'),
         cardEvents: [
           {
             eventWeightClass: 'Lightweight',

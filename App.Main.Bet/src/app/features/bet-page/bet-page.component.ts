@@ -29,8 +29,6 @@ export class BetPageComponent implements OnInit {
 
   // Sets the first tab open dynamically at run-time
   // # of events (i.e. accordian headers unknown until get API call)
-
-  // TODO: Unit test this
   ngAfterContentInit() {
     // setting the specifc accordion tab we want open on rendering
     this.activeState = new Array(this.ufcEvents.length);
