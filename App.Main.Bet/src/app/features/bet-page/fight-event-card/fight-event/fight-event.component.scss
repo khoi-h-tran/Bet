@@ -36,10 +36,23 @@ $backgroundColor: #ccc9c3;
   // height: fit-content;
 }
 
+::ng-deep .p-card .p-card-title {
+  padding-left: 12px;
+  margin-bottom: 2px;
+}
+
 ::ng-deep .p-card-content {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(1, 1fr);
+}
+
+::ng-deep .p-card .p-card-content {
+  padding: 0 0;
+}
+
+::ng-deep .p-card .p-card-body {
+  padding: 4px;
 }
 
 // ::ng-deep .eventTimeHeader {
