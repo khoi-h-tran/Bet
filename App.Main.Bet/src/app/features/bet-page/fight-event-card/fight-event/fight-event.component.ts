@@ -32,7 +32,6 @@ export class FightEventComponent implements OnInit {
     });
   }
 
-  // TODO: Unit test
   onPlaceBet(seletedEventIndex: number) {
     // create object to send back for database storage
     this.betPlacement = {

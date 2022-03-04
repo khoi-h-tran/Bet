@@ -5,17 +5,11 @@ $accordionTabViewPanelBackgroundColor: #ccc9c3;
 $borderColor: #242424;
 
 :host {
-  //   display: grid;
-  //   grid-template-columns: repeat(12, 1fr);
-  //   grid-template-rows: 1fr;
-  //   background-color: $backgroundColor;
   column-span: all;
 }
 
 ::ng-deep .p-tabview .p-tabview-panels {
   background-color: $accordionTabViewPanelBackgroundColor;
-  // // TODO: FIX THIS
-  // height: 400px;
 }
 
 ::ng-deep .p-accordion .p-accordion-content {
