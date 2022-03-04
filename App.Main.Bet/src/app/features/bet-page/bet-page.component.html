@@ -1,6 +1,6 @@
 
 <p-accordion>
     <p-accordionTab *ngFor="let ufcEvent of ufcEvents; ; let i = index" header="{{ufcEvent.eventName}} - {{ufcEvent.eventDate | date:'MMM d, y'}}" [(selected)]="activeState[i]">  
-        <app-fight-event-card [ufcEventCards]="ufcEvent.eventCards"></app-fight-event-card>
+        <app-fight-event-card [ufcEventCards]="ufcEvent.eventCards" [eventName]="ufcEvent.eventName"></app-fight-event-card>
     </p-accordionTab> 
 </p-accordion>

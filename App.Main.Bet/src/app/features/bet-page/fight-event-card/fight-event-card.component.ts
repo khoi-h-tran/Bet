@@ -9,6 +9,10 @@ import { ICard } from 'src/app/shared/models/ufc-events.model';
 export class FightEventCardComponent implements OnInit {
   @Input() ufcEventCards: ICard[] = [];
 
+  // Passed in from parent component
+  // Pass to child component (to build bet placement object)
+  @Input() eventName: string = '';
+
   constructor() {}
 
   ngOnInit(): void {}

@@ -3,6 +3,17 @@
         <p-avatar class="fighter1Img" image={{ufcFightEvent.eventFighter1.fighterImage}} styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
         <p class="fighter1Name">{{ufcFightEvent.eventFighter1.fighterName}}</p>
         <p class="fighter1Record">{{ufcFightEvent.eventFighter1.fighterRecord}}</p>
+        <p-radioButton 
+        name="{{ufcFightEvent.eventFighter1.fighterName}}vs{{ufcFightEvent.eventFighter2.fighterName}}" 
+        value="{{ufcFightEvent.eventFighter1.fighterName}}" 
+        [(ngModel)]="selectedFighter[i]"
+        (onClick)="onPlaceBet(i)">
+        </p-radioButton>
+        <p-radioButton 
+        name="{{ufcFightEvent.eventFighter1.fighterName}}vs{{ufcFightEvent.eventFighter2.fighterName}}" 
+        value="{{ufcFightEvent.eventFighter2.fighterName}}" 
+        [(ngModel)]="selectedFighter[i]"
+        (onClick)="onPlaceBet(i)"></p-radioButton>
         <p-avatar class="fighter2Img" image={{ufcFightEvent.eventFighter2.fighterImage}} styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
         <p class="fighter2Name">{{ufcFightEvent.eventFighter2.fighterName}}</p>
         <p class="fighter2Record">{{ufcFightEvent.eventFighter2.fighterRecord}}</p>

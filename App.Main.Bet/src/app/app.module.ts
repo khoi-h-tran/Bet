@@ -12,6 +12,8 @@ import { NavbarComponent } from './features/navbar/navbar.component';
 import { AccordionModule } from 'primeng/accordion';
 import { AvatarModule } from 'primeng/avatar';
 import { CardModule } from 'primeng/card';
+import { FormsModule } from '@angular/forms';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { TabViewModule } from 'primeng/tabview';
 import { TabMenuModule } from 'primeng/tabmenu';
 
@@ -39,7 +41,9 @@ import { FightEventComponent } from './features/bet-page/fight-event-card/fight-
     BrowserAnimationsModule,
     BrowserModule,
     CardModule,
+    FormsModule,
     HttpClientModule,
+    RadioButtonModule,
     StoreModule.forRoot({ ufcEvents: betReducer }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     TabMenuModule,

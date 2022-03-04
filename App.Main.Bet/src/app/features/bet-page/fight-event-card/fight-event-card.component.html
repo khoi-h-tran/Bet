@@ -1,5 +1,5 @@
 <p-tabView>
     <p-tabPanel *ngFor="let ufcEventCard of ufcEventCards; let i = index" header="{{ufcEventCard.cardType}} - {{ufcEventCard.eventTime | date:'ha' }}">
-        <app-fight-event [ufcFightEvents]="ufcEventCard.cardEvents" [eventTime]="ufcEventCard.eventTime"></app-fight-event>
+        <app-fight-event [ufcFightEvents]="ufcEventCard.cardEvents" [eventTime]="ufcEventCard.eventTime" [eventName]="eventName" [cardType]="ufcEventCard.cardType"></app-fight-event>
     </p-tabPanel>
 </p-tabView>
