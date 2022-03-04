@@ -1,35 +1,5 @@
 $backgroundColor: #ccc9c3;
 
-// ::ng-deep .p-card-body {
-//   // display: grid;
-//   // grid-template-columns: repeat(12, 1fr);
-//   // grid-template-rows: repeat(12, 1fr);
-//   // height: 20;
-// }
-// :host {
-//   display: grid;
-// }
-
-// .cardContainer {
-//   display: grid;
-//   grid-template-columns: repeat(12, 1fr);
-//   grid-template-rows: repeat(12, 1fr);
-// }
-
-// .p-card .p-component {
-//   width: 10%;
-// }
-
-// ::ng-deep p-card p.component {
-//   height: 400px;
-//   grid-template-columns: repeat(12, 1fr);
-//   grid-template-rows: repeat(12, 1fr);
-// }
-
-// .ngx-cardStyle {
-//   margin-bottom: 5px;
-// }
-
 ::ng-deep .p-card {
   margin-bottom: 5px;
   // height: 200px;
@@ -38,7 +8,6 @@ $backgroundColor: #ccc9c3;
 
 ::ng-deep .p-card .p-card-title {
   padding-left: 12px;
-  margin-bottom: 2px;
 }
 
 ::ng-deep .p-card-content {
@@ -55,21 +24,13 @@ $backgroundColor: #ccc9c3;
   padding: 4px;
 }
 
-// ::ng-deep .eventTimeHeader {
-//   text-align: center;
-//   height: 100px;
-// }
-
-// .eventTimeHeader h1 {
-//   grid-column: 1/13;
-// }
-
 .fighter1Img {
   grid-column: 1;
 }
 
 .fighter1Name {
-  grid-column: 2;
+  grid-column: 2/4;
+  word-spacing: 100vw;
   margin-left: 7px;
 }
 
@@ -77,12 +38,23 @@ $backgroundColor: #ccc9c3;
   grid-column: 4;
 }
 
+.fighter1RadioButton {
+  grid-column: 5;
+  justify-self: center;
+}
+
+.fighter2RadioButton {
+  grid-column: 8;
+  justify-self: center;
+}
+
 .fighter2Img {
   grid-column: 9;
 }
 
 .fighter2Name {
-  grid-column: 10;
+  grid-column: 10/12;
+  word-spacing: 100vw;
   margin-left: 7px;
 }
 

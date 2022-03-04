@@ -4,12 +4,14 @@
         <p class="fighter1Name">{{ufcFightEvent.eventFighter1.fighterName}}</p>
         <p class="fighter1Record">{{ufcFightEvent.eventFighter1.fighterRecord}}</p>
         <p-radioButton 
+        class="fighter1RadioButton"
         name="{{ufcFightEvent.eventFighter1.fighterName}}vs{{ufcFightEvent.eventFighter2.fighterName}}" 
         value="{{ufcFightEvent.eventFighter1.fighterName}}" 
         [(ngModel)]="selectedFighter[i]"
         (onClick)="onPlaceBet(i)">
         </p-radioButton>
         <p-radioButton 
+        class="fighter2RadioButton"
         name="{{ufcFightEvent.eventFighter1.fighterName}}vs{{ufcFightEvent.eventFighter2.fighterName}}" 
         value="{{ufcFightEvent.eventFighter2.fighterName}}" 
         [(ngModel)]="selectedFighter[i]"
