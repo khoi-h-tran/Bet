@@ -18,6 +18,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
 import { CardModule } from 'primeng/card';
 import { AvatarModule } from 'primeng/avatar';
+import { FormsModule } from '@angular/forms';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 describe('BetPageComponent', () => {
   let component: BetPageComponent;
@@ -47,6 +49,8 @@ describe('BetPageComponent', () => {
         AvatarModule,
         BrowserAnimationsModule,
         CardModule,
+        FormsModule,
+        RadioButtonModule,
         TabMenuModule,
         TabViewModule,
       ],

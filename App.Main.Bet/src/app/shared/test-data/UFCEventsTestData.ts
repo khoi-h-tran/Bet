@@ -12,6 +12,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
         cardEvents: [
           {
             eventWeightClass: 'Middleweight',
+            selectedFighter: 'Robert Wittaker',
             eventFighter1: {
               fighterName: 'Israel Adesanya',
               fighterRecord: '21-1-0',
@@ -27,6 +28,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
           },
           {
             eventWeightClass: 'Heavyweight',
+            selectedFighter: '',
             eventFighter1: {
               fighterName: 'Derrick Lewis',
               fighterRecord: '26-8-0',
@@ -48,6 +50,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
         cardEvents: [
           {
             eventWeightClass: 'Heavyweight',
+            selectedFighter: '',
             eventFighter1: {
               fighterName: 'Andrei Arlovski',
               fighterRecord: '32-20-0',
@@ -63,6 +66,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
           },
           {
             eventWeightClass: 'Flyweight',
+            selectedFighter: '',
             eventFighter1: {
               fighterName: 'Roxanne Modaferri',
               fighterRecord: '25-20-0',
@@ -84,6 +88,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
         cardEvents: [
           {
             eventWeightClass: 'Bantamweight',
+            selectedFighter: '',
             eventFighter1: {
               fighterName: 'Mana Martinez',
               fighterRecord: '9-2-0',
@@ -99,6 +104,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
           },
           {
             eventWeightClass: 'Lightweight',
+            selectedFighter: '',
             eventFighter1: {
               fighterName: 'Alexander Hernandez',
               fighterRecord: '13-4-0',
@@ -127,6 +133,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
         cardEvents: [
           {
             eventWeightClass: 'Welterweight',
+            selectedFighter: '',
             eventFighter1: {
               fighterName: 'Colby Covington',
               fighterRecord: '16-3-0',
@@ -142,6 +149,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
           },
           {
             eventWeightClass: 'Lightweight',
+            selectedFighter: '',
             eventFighter1: {
               fighterName: 'Rafaeldos Anjos',
               fighterRecord: '30-13-0',
@@ -163,6 +171,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
         cardEvents: [
           {
             eventWeightClass: 'Lightweight',
+            selectedFighter: '',
             eventFighter1: {
               fighterName: 'Jalin Turner',
               fighterRecord: '11-5-0',
@@ -178,6 +187,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
           },
           {
             eventWeightClass: 'Strawweight',
+            selectedFighter: '',
             eventFighter1: {
               fighterName: 'Marina Rodriguez',
               fighterRecord: '15-1-2',

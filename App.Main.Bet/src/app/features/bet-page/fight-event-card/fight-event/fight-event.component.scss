@@ -2,8 +2,6 @@ $backgroundColor: #ccc9c3;
 
 ::ng-deep .p-card {
   margin-bottom: 5px;
-  // height: 200px;
-  // height: fit-content;
 }
 
 ::ng-deep .p-card .p-card-title {
@@ -61,11 +59,3 @@ $backgroundColor: #ccc9c3;
 .fighter2Record {
   grid-column: 12;
 }
-
-// ::ng-deep .p-card .p-card-body {
-//   margin-bottom: 100;
-// }
-
-// ::ng-deep .p-card {
-//   background-color: $backgroundColor;
-// }

@@ -12,14 +12,20 @@ export class FightEventComponent implements OnInit {
   @Input() eventName: string = '';
   @Input() cardType: string = '';
 
-  // TODO: Unit test this
   // An array of the selected fighters for each specific fight event
   // Index matches the UfcFightEvents index
   selectedFighter: string[] = new Array<string>(this.ufcFightEvents.length);
+  // This object will be created to place bets when radio button is checked
+  betPlacement: IBetPlacement = {
+    userID: '',
+    eventName: '',
+    cardType: '',
+    eventWeightClass: '',
+    selectedFighter: '',
+  };
 
   constructor() {}
 
-  // TODO: Unit test this and the checkboxes added
   ngOnInit(): void {
     this.ufcFightEvents.forEach((fightEvent, index) => {
       this.selectedFighter[index] = fightEvent.selectedFighter;
@@ -29,7 +35,7 @@ export class FightEventComponent implements OnInit {
   // TODO: Unit test
   onPlaceBet(seletedEventIndex: number) {
     // create object to send back for database storage
-    let betPlacement: IBetPlacement = {
+    this.betPlacement = {
       userID: 'tempId123',
       eventName: this.eventName,
       cardType: this.cardType,
@@ -37,6 +43,6 @@ export class FightEventComponent implements OnInit {
       selectedFighter: this.selectedFighter[seletedEventIndex],
     };
     // Send bet to database to update
-    console.log(betPlacement);
+    console.log(this.betPlacement);
   }
 }

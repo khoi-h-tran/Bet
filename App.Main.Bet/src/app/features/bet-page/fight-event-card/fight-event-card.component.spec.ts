@@ -1,8 +1,10 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { AvatarModule } from 'primeng/avatar';
 import { CardModule } from 'primeng/card';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabView, TabViewModule } from 'primeng/tabview';
 import { ufcTestDataTS } from 'src/app/shared/test-data/UFCEventsTestData';
@@ -22,7 +24,14 @@ describe('FightEventCardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [AvatarModule, CardModule, TabMenuModule, TabViewModule],
+      imports: [
+        AvatarModule,
+        CardModule,
+        FormsModule,
+        RadioButtonModule,
+        TabMenuModule,
+        TabViewModule,
+      ],
       declarations: [FightEventCardComponent, FightEventComponent],
     }).compileComponents();
 
