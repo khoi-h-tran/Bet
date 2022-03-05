@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 // NGRX
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { BetModule } from './features/bet-page/bet.module';
 
 // environemnt file
 import { environment } from '../environments/environment';
@@ -24,7 +25,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 
 // Components
 import { BetPageComponent } from './features/bet-page/bet-page.component';
-import { betReducer } from './app-state/reducers/bet.reducer';
+import * as betReducer from './app-state/reducers/bet.reducer';
 import { FightEventCardComponent } from './features/bet-page/fight-event-card/fight-event-card.component';
 import { FightEventComponent } from './features/bet-page/fight-event-card/fight-event/fight-event.component';
 import { NavbarComponent } from './features/navbar/navbar.component';
@@ -49,7 +50,10 @@ import { StatisticsPageComponent } from './features/statistics-page/statistics-p
     FormsModule,
     HttpClientModule,
     RadioButtonModule,
-    StoreModule.forRoot({ ufcEvents: betReducer }),
+    // The root state - creates empty {} state
+    StoreModule.forRoot({}),
+    // This adds the bet state feature - adds { bet: { ufcEvents: [] }}
+    BetModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     TabMenuModule,
     TabViewModule,

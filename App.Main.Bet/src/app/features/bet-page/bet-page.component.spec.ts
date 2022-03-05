@@ -86,7 +86,7 @@ describe('BetPageComponent', () => {
       .toBe(true);
 
     expect(store.dispatch).toHaveBeenCalledWith(
-      retrievedUFCEvents({ ufcEvents: ufcTestDataTS })
+      retrievedUFCEvents({ retrievedUFCEventsData: ufcTestDataTS })
     );
   });
 

@@ -1,18 +1,21 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { retrievedUFCEvents } from '../actions/bet.actions';
+import * as BetActions from '../actions/bet.actions';
 import { IUFCEvents } from '../../shared/models/ufc-events.model';
+import { BetState } from '../app.state';
 
-export const initialState: ReadonlyArray<IUFCEvents> = [
-  {
-    eventName: '',
-    eventDate: new Date(),
-    eventVenue: '',
-    eventCards: [],
-  },
-];
+// key that identifies the state feature
+export const betFeatureKey = 'bet';
+
+export const initialState: BetState = {
+  ufcEvents: [
+    { eventName: '', eventDate: new Date(), eventVenue: '', eventCards: [] },
+  ],
+};
 
 export const betReducer = createReducer(
   initialState,
-  on(retrievedUFCEvents, (state, { ufcEvents }) => ufcEvents)
+  on(BetActions.retrievedUFCEvents, (state, { retrievedUFCEventsData }) => ({
+    ufcEvents: retrievedUFCEventsData,
+  }))
 );
