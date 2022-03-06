@@ -3,7 +3,7 @@ import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { IUFCEvents } from 'src/app/shared/models/ufc-events.model';
 import { ufcTestDataTS } from 'src/app/shared/test-data/UFCEventsTestData';
 import { retrievedUFCEvents } from '../actions/bet.actions';
-import { BetState } from '../app.state';
+import { IBetState } from '../app.state';
 import { selectUFCEvents } from '../selectors/bet.selectors';
 
 import * as betReducers from './bet.reducer';
@@ -11,7 +11,7 @@ import * as betReducers from './bet.reducer';
 describe('bet Reducer', () => {
   let store: MockStore;
 
-  const initialState: BetState = {
+  const initialState: IBetState = {
     ufcEvents: [
       { eventName: '', eventDate: new Date(), eventVenue: '', eventCards: [] },
     ],

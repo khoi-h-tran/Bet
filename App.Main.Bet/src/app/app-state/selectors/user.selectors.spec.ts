@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ufcTestDataTS } from 'src/app/shared/test-data/UFCEventsTestData';
-import * as betSelectors from './bet.selectors';
-import { IUFCEvents } from 'src/app/shared/models/ufc-events.model';
-import { IAppState, IBetState, IUserState } from '../app.state';
+import * as userSelectors from './user.selectors';
+import { IBetState, IUserState, IAppState } from '../app.state';
+import { userTestData } from 'src/app/shared/test-data/user-test-data';
 
-describe('Bet Selectors', () => {
+describe('User Selectors', () => {
   let store: MockStore;
 
   const initialBetState: IBetState = { ufcEvents: ufcTestDataTS };
@@ -27,8 +27,6 @@ describe('Bet Selectors', () => {
     },
   };
 
-  let ufcEventsFromSelector: ReadonlyArray<IUFCEvents> = [];
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [provideMockStore({ initialState })],
@@ -37,16 +35,15 @@ describe('Bet Selectors', () => {
     store = TestBed.inject(MockStore);
   });
 
-  it('should return a selection of UFC events', () => {
-    store
-      .select(betSelectors.selectUFCEvents)
-      .subscribe((ufcEvents) => (ufcEventsFromSelector = ufcEvents));
-    expect(ufcEventsFromSelector).toEqual(ufcTestDataTS);
+  it('should return a selection of user name', () => {
+    expect(userSelectors.selectUserName.projector(initialState.user)).toBe(
+      initialState.user.userName
+    );
   });
 
-  it('should use projector to verify feature selection', () => {
-    expect(betSelectors.selectUFCEvents.projector(initialState.bet)).toBe(
-      initialState.bet.ufcEvents
+  it('should return a selection of login', () => {
+    expect(userSelectors.selectLogin.projector(initialState.user)).toBe(
+      initialState.user.login
     );
   });
 });

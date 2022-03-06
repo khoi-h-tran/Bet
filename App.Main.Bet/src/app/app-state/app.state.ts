@@ -1,15 +1,15 @@
 import { IUFCEvents } from '../shared/models/ufc-events.model';
 
-export interface AppState {
-  user: UserState;
-  bet: BetState;
+export interface IAppState {
+  user: IUserState;
+  bet: IBetState;
 }
 
-export interface BetState {
+export interface IBetState {
   ufcEvents: ReadonlyArray<IUFCEvents>;
 }
 
-export interface UserState {
+export interface IUserState {
   userName: string;
   login: string;
 }
