@@ -1,1 +1,6 @@
-<p>auth works!</p>
+<ng-container *ngIf="!signup && !login">
+    <p-button label="Sign up" class="signup" (onClick)="onAuthSelection($event)"></p-button>
+    <p-button label="Login" class="login" (onClick)="onAuthSelection($event)"></p-button>
+    <p-button label="Proceed as Guest" class="guest" (onClick)="onAuthSelection($event)"></p-button>
+</ng-container>
+

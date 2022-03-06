@@ -18,6 +18,7 @@ import { environment } from '../environments/environment';
 // PrimeNG
 import { AccordionModule } from 'primeng/accordion';
 import { AvatarModule } from 'primeng/avatar';
+import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { FormsModule } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -31,6 +32,7 @@ import { FightEventComponent } from './features/bet-page/fight-event-card/fight-
 import { NavbarComponent } from './features/navbar/navbar.component';
 import { StatisticsPageComponent } from './features/statistics-page/statistics-page.component';
 import { AuthComponent } from './features/auth/auth.component';
+import { ErrorPageComponent } from './features/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { AuthComponent } from './features/auth/auth.component';
     FightEventCardComponent,
     FightEventComponent,
     AuthComponent,
+    ErrorPageComponent,
   ],
   imports: [
     AccordionModule,
@@ -48,6 +51,7 @@ import { AuthComponent } from './features/auth/auth.component';
     AvatarModule,
     BrowserAnimationsModule,
     BrowserModule,
+    ButtonModule,
     CardModule,
     FormsModule,
     HttpClientModule,

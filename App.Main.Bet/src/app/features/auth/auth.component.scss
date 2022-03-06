@@ -1,0 +1,37 @@
+$backgroundColor: #242424;
+
+:host {
+  display: grid;
+  grid-column: 3 / 11;
+  grid-row: 2 / 10;
+  background-color: $backgroundColor;
+
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  height: 100%;
+}
+
+.signup {
+  grid-column: 6;
+  grid-row: 5;
+  justify-self: center;
+}
+
+.login {
+  grid-column: 6;
+  grid-row: 6;
+  justify-self: center;
+}
+
+.guest {
+  grid-column: 6;
+  grid-row: 7;
+  justify-self: center;
+}
+
+::ng-deep .p-button {
+  width: 200px;
+  height: 40px;
+  color: white;
+  background: #121212;
+}
