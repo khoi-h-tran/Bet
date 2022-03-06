@@ -20,10 +20,14 @@ import { AccordionModule } from 'primeng/accordion';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TabViewModule } from 'primeng/tabview';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { TooltipModule } from 'primeng/tooltip';
 
 // Components
 import { BetPageComponent } from './features/bet-page/bet-page.component';
@@ -53,8 +57,11 @@ import { ErrorPageComponent } from './features/error-page/error-page.component';
     BrowserModule,
     ButtonModule,
     CardModule,
+    DialogModule,
     FormsModule,
     HttpClientModule,
+    InputTextModule,
+    PasswordModule,
     RadioButtonModule,
     // The root state - creates empty {} state
     StoreModule.forRoot({}),
@@ -65,6 +72,7 @@ import { ErrorPageComponent } from './features/error-page/error-page.component';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     TabMenuModule,
     TabViewModule,
+    TooltipModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [Title],

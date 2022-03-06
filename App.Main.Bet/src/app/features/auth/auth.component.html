@@ -1,6 +1,47 @@
-<ng-container *ngIf="!signup && !login">
-    <p-button label="Sign up" class="signup" (onClick)="onAuthSelection($event)"></p-button>
-    <p-button label="Login" class="login" (onClick)="onAuthSelection($event)"></p-button>
-    <p-button label="Proceed as Guest" class="guest" (onClick)="onAuthSelection($event)"></p-button>
-</ng-container>
+<p-dialog [(visible)]="display" [draggable]="false" [modal]="true" [closable]="false" [showHeader]="false">
+    <ng-container *ngIf="!signup && !login">
+        <p-button label="Sign up" class="signup" (onClick)="onAuthSelection($event)"></p-button>
+        <p-button label="Login" class="login" (onClick)="onAuthSelection($event)"></p-button>
+        <p-button label="Proceed as Guest" class="guest" (onClick)="onAuthSelection($event)"></p-button>
+    </ng-container>
+    <ng-container *ngIf="signup || login">
+        <div *ngIf="signup" class="userName">
+            <label for="username" class="block">Username</label>
+            <ng-container *ngIf="!invalidUserName; else errorMsgUserName">
+                <input  type="text" pInputText [(ngModel)]="userName"> 
+            </ng-container>
+            <ng-template #errorMsgUserName>
+                <input id="username" type="username" aria-describedby="username-help" class="ng-invalid ng-dirty" pInputText />
+                <small id="username-help" class="p-error block">{{invalidUserNameMsg}}</small>
+            </ng-template>
+        </div>
 
+        <div class="email">
+            <label for="email" class="block">E-mail</label>
+            <ng-container *ngIf="!invalidEmail; else errorMsgEmail">
+                <input type="text" pInputText [(ngModel)]="email"> 
+            </ng-container>
+            <ng-template #errorMsgEmail>
+                <input id="email" type="email" aria-describedby="email-help" class="ng-invalid ng-dirty" pInputText />
+                <small id="email-help" class="p-error block">{{invalidEmailMsg}}</small>
+            </ng-template>
+        </div>
+
+        <div class="password">
+            <label for="password" class="block">Password</label>
+            <ng-container *ngIf="!invalidPassword; else errorMsgPassword">
+                <p-password [(ngModel)]="password" [toggleMask]="true">
+                </p-password>
+            </ng-container>
+            <ng-template #errorMsgPassword>
+                <p-password [(ngModel)]="password" [toggleMask]="true"></p-password>
+                <small id="password-help" class="p-error block">{{invalidPasswordMsg}}</small>
+            </ng-template>
+        </div>
+
+        <p-button *ngIf="signup" label="Signup" class="submitSignup" (onClick)="onAuthSelection($event)"></p-button>
+        <p-button *ngIf="login" label="Login" class="submitLogin" (onClick)="onAuthSelection($event)"></p-button>
+
+        <p-button class="goBack" icon="pi pi-caret-left" pTooltip="Go back" tooltipPosition="top" (onClick)="onResetAuth()"></p-button>
+    </ng-container>
+</p-dialog>

@@ -6,8 +6,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
+  // tracks which button user clicked on
   signup: boolean = false;
   login: boolean = false;
+  // Sets the dialog to display
+  display: boolean = true;
+  // input from user
+  userName: string = '';
+  email: string = '';
+  password: string = '';
+  // if input was invalid
+  invalidUserName: boolean = false;
+  invalidEmail: boolean = false;
+  invalidPassword: boolean = false;
+  // invalid message
+  invalidUserNameMsg: string = 'Invalid User Name';
+  invalidEmailMsg: string = 'Invalid E-mail Address';
+  invalidPasswordMsg: string = 'Invalid Password';
 
   constructor() {}
 
@@ -17,5 +32,10 @@ export class AuthComponent implements OnInit {
     let buttonClicked = event.target.innerText;
 
     buttonClicked === 'Sign up' ? (this.signup = true) : (this.login = true);
+  }
+
+  onResetAuth() {
+    this.signup = false;
+    this.login = false;
   }
 }
