@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
+// TODO: UNIT TEST Entire Class
 export class AuthComponent implements OnInit {
   // tracks which button user clicked on
   signup: boolean = false;
@@ -37,5 +38,9 @@ export class AuthComponent implements OnInit {
   onResetAuth() {
     this.signup = false;
     this.login = false;
+  }
+
+  onProceedAsGuest() {
+    console.log('Proceed as guest');
   }
 }

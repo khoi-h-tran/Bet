@@ -19,6 +19,7 @@ export class BetPageComponent implements OnInit {
   constructor(private betService: BetService, private store: Store) {}
 
   ngOnInit(): void {
+    // TODO: implement try catch
     this.betService.getUFCEvents().subscribe((retrievedUFCEventsData) => {
       this.store.dispatch(retrievedUFCEvents({ retrievedUFCEventsData }));
       this.store

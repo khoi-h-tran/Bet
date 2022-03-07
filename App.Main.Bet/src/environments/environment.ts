@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // urlBetDB:
+  //   'https://betapp-dc664-default-rtdb.firebaseio.com/tempId123_UFC 271_Main Card_Middleweight.json',
+  // urlBetDB:
+  //   'https://betapp-dc664-default-rtdb.firebaseio.com/bets/tempId123_UFC 271_Main Card_Middleweight.json',
+  // urlBetDB: 'https://betapp-dc664-default-rtdb.firebaseio.com/bets/bets.json',
+  urlBetDB: 'https://betapp-dc664-default-rtdb.firebaseio.com/bets/',
+  urlTestJSONData:
+    'https://raw.githubusercontent.com/khoi-h-tran/TestJSONData/master/UFCEventsTestData.json',
 };
 
 /*

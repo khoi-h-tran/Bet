@@ -22,14 +22,6 @@ export interface IFighter {
   fighterImage: string; // Base64
 }
 
-export interface IBetPlacement {
-  userID: string;
-  eventName: string;
-  cardType: string;
-  eventWeightClass: string;
-  selectedFighter: string;
-}
-
 export interface IEvent {
   eventWeightClass: string;
   selectedFighter: string;

@@ -5,6 +5,9 @@ import { of, Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { IUFCEvents } from '../../shared/models/ufc-events.model';
 
+import { environment } from '../../../environments/environment';
+import { IBetPlacement } from 'src/app/shared/models/bet.model';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -15,11 +18,30 @@ export class BetService {
   constructor(private http: HttpClient) {}
 
   getUFCEvents(): Observable<Array<IUFCEvents>> {
-    return this.http.get<IUFCEvents[]>(this.ufcDataURL).pipe(
+    return this.http.get<IUFCEvents[]>(environment.urlTestJSONData).pipe(
       tap((ufcEvents) => this.log('fetched ufc events')),
       catchError(this.handleError('getUFCEvents'))
     ) as Observable<Array<IUFCEvents>>;
   }
+
+  // TODO: UNIT TEST THIS
+  addBet(key: string, selectedFighter: IBetPlacement): Observable<any> {
+    console.log(`${environment.urlBetDB}${key}.json`);
+    return this.http
+      .put(`${environment.urlBetDB}${key}.json`, selectedFighter)
+      .pipe(
+        tap((betPlacementResponse) => this.log('placed bet')),
+        catchError(this.handleError('onPlaceBet'))
+      ) as Observable<any>;
+  }
+
+  // addBet(betPlacement: IBetPlacement): Observable<any> {
+  //   console.log(environment.urlBetDB);
+  //   return this.http.put(environment.urlBetDB, betPlacement).pipe(
+  //     tap((betPlacementResponse) => this.log('placed bet')),
+  //     catchError(this.handleError('onPlaceBet'))
+  //   ) as Observable<any>;
+  // }
 
   /**
    * Returns a function that handles Http operation failures.

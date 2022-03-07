@@ -10,6 +10,7 @@
         [(ngModel)]="selectedFighter[i]"
         (onClick)="onPlaceBet(i)">
         </p-radioButton>
+        <p-toast key="{{ufcFightEvent.eventFighter1.fighterName}}vs{{ufcFightEvent.eventFighter2.fighterName}}" class="betStatusMessage" position="top-center"></p-toast>
         <p-radioButton 
         class="fighter2RadioButton"
         name="{{ufcFightEvent.eventFighter1.fighterName}}vs{{ufcFightEvent.eventFighter2.fighterName}}" 

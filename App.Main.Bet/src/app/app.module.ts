@@ -15,7 +15,7 @@ import { AuthModule } from './features/auth/auth.module';
 // environemnt file
 import { environment } from '../environments/environment';
 
-// PrimeNG
+// PrimeNG Modules
 import { AccordionModule } from 'primeng/accordion';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
@@ -27,7 +27,11 @@ import { PasswordModule } from 'primeng/password';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TabViewModule } from 'primeng/tabview';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
+
+// PrimeNG Services
+import { MessageService } from 'primeng/api';
 
 // Components
 import { BetPageComponent } from './features/bet-page/bet-page.component';
@@ -72,10 +76,11 @@ import { ErrorPageComponent } from './features/error-page/error-page.component';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     TabMenuModule,
     TabViewModule,
+    ToastModule,
     TooltipModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [Title],
+  providers: [Title, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
