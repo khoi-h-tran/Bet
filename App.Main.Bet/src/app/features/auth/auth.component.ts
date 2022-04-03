@@ -16,10 +16,6 @@ export class AuthComponent implements OnInit {
   userName: string = '';
   email: string = '';
   password: string = '';
-  // if input was invalid
-  invalidUserName: boolean = false;
-  invalidEmail: boolean = false;
-  invalidPassword: boolean = false;
   // invalid message
   invalidUserNameMsg: string = 'Invalid User Name';
   invalidEmailMsg: string = 'Invalid E-mail Address';
@@ -33,6 +29,12 @@ export class AuthComponent implements OnInit {
     let buttonClicked = event.target.innerText;
 
     buttonClicked === 'Sign up' ? (this.signup = true) : (this.login = true);
+  }
+
+  onSubmit(event: any) {
+    let buttonClicked = event.target.innerText;
+
+    console.log(buttonClicked);
   }
 
   onResetAuth() {

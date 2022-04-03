@@ -7,40 +7,30 @@
     <ng-container *ngIf="signup || login">
         <div *ngIf="signup" class="userName">
             <label for="username" class="block">Username</label>
-            <ng-container *ngIf="!invalidUserName; else errorMsgUserName">
-                <input  type="text" pInputText [(ngModel)]="userName"> 
-            </ng-container>
-            <ng-template #errorMsgUserName>
-                <input id="username" type="username" aria-describedby="username-help" class="ng-invalid ng-dirty" pInputText />
+            <input type="text" id="username" name="username" class="form-control" required minlength="4" pInputText [(ngModel)]="userName" #username="ngModel"> 
+            <ng-container *ngIf="(username.touched || username.dirty) && username.invalid">
                 <small id="username-help" class="p-error block">{{invalidUserNameMsg}}</small>
-            </ng-template>
+            </ng-container>
         </div>
 
         <div class="email">
             <label for="email" class="block">E-mail</label>
-            <ng-container *ngIf="!invalidEmail; else errorMsgEmail">
-                <input type="text" pInputText [(ngModel)]="email"> 
-            </ng-container>
-            <ng-template #errorMsgEmail>
-                <input id="email" type="email" aria-describedby="email-help" class="ng-invalid ng-dirty" pInputText />
+            <input type="email" id="email" name="email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required class="form-control"  pInputText [(ngModel)]="email" #emailInput="ngModel">
+            <ng-container *ngIf="(emailInput.touched || emailInput.dirty) && emailInput.invalid">
                 <small id="email-help" class="p-error block">{{invalidEmailMsg}}</small>
-            </ng-template>
+            </ng-container>
         </div>
 
         <div class="password">
             <label for="password" class="block">Password</label>
-            <ng-container *ngIf="!invalidPassword; else errorMsgPassword">
-                <p-password [(ngModel)]="password" [toggleMask]="true">
-                </p-password>
-            </ng-container>
-            <ng-template #errorMsgPassword>
-                <p-password [(ngModel)]="password" [toggleMask]="true"></p-password>
+            <p-password id="password" name="password" required class="form-control" [(ngModel)]="password" [toggleMask]="true" #passwordInput="ngModel"></p-password>
+            <ng-container *ngIf="(passwordInput.touched || passwordInput.dirty) && passwordInput.invalid">
                 <small id="password-help" class="p-error block">{{invalidPasswordMsg}}</small>
-            </ng-template>
+            </ng-container>
         </div>
 
-        <p-button *ngIf="signup" label="Signup" class="submitSignup" (onClick)="onAuthSelection($event)"></p-button>
-        <p-button *ngIf="login" label="Login" class="submitLogin" (onClick)="onAuthSelection($event)"></p-button>
+        <p-button *ngIf="signup" label="Signup" class="submitSignup" (onClick)="onSubmit($event)"></p-button>
+        <p-button *ngIf="login" label="Login" class="submitLogin" (onClick)="onSubmit($event)"></p-button>
 
         <p-button class="goBack" icon="pi pi-caret-left" pTooltip="Go back" tooltipPosition="top" (onClick)="onResetAuth()"></p-button>
     </ng-container>
