@@ -107,6 +107,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "App.Main.Bet:build:production",
+            "firebaseProject": "betapp-dc664",
+            "firebaseHostingSite": "betapp-dc664"
+          }
         }
       }
     }

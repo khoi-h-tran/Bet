@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "betapp-dc664": {
+      "hosting": {
+        "App.Main.Bet": [
+          "betapp-dc664"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "betapp-dc664"
+  }
+}

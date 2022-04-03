@@ -43,6 +43,12 @@ import { StatisticsPageComponent } from './features/statistics-page/statistics-p
 import { AuthComponent } from './features/auth/auth.component';
 import { ErrorPageComponent } from './features/error-page/error-page.component';
 
+// Firebase
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,9 +86,16 @@ import { ErrorPageComponent } from './features/error-page/error-page.component';
     TabViewModule,
     ToastModule,
     TooltipModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [Title, MessageService],
+  providers: [
+    Title,
+    MessageService,
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

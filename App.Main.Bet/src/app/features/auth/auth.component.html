@@ -1,3 +1,4 @@
+<p-toast class="authStatusMessage" position="top-center"></p-toast>
 <p-dialog [(visible)]="display" [draggable]="false" [modal]="true" [closable]="false" [showHeader]="false">
     <div *ngIf="!signup && !login" class="authButtons">
         <p-button label="Sign up" class="signup" (onClick)="onAuthSelection($event)"></p-button>
@@ -5,7 +6,7 @@
         <p-button label="Proceed as Guest" class="guest" (onClick)="onProceedAsGuest()"></p-button>
     </div>
     <ng-container *ngIf="signup">
-        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit($event)">
+        <form [formGroup]="signUpForm" (ngSubmit)="onSignUp($event)">
             <div class="userName">
                 <label for="username" class="block">Username</label>
                 <input type="text" id="userName" name="userName" class="form-control" pInputText formControlName="userName"> 
@@ -28,11 +29,11 @@
                 </ng-container>
             </div>
             <p-button class="goBack" icon="pi pi-caret-left" pTooltip="Go back" tooltipPosition="top" (onClick)="onResetAuth()"></p-button>
-            <p-button label="Signup" class="submitSignup" (onClick)="onSubmit($event)"></p-button>
+            <p-button type="submit" label="Signup" class="submitSignup" [disabled]="signUpForm.invalid"></p-button>
         </form>
     </ng-container>
     <ng-container *ngIf="login">
-        <form [formGroup]="logInForm" (ngSubmit)="onSubmit($event)">
+        <form [formGroup]="logInForm" (ngSubmit)="onLogIn($event)">
             <div class="email">
                 <label for="email" class="block">E-mail</label>
                 <input type="email" id="email" name="email" class="form-control"  pInputText formControlName="email">
@@ -48,7 +49,7 @@
                 </ng-container>
             </div>
             <p-button class="goBack" icon="pi pi-caret-left" pTooltip="Go back" tooltipPosition="top" (onClick)="onResetAuth()"></p-button>
-            <p-button label="Login" class="submitLogin" (onClick)="onSubmit($event)"></p-button>
+            <p-button type="submit" label="Login" class="submitLogin" [disabled]="logInForm.invalid"></p-button>
         </form>
     </ng-container>
 </p-dialog>
