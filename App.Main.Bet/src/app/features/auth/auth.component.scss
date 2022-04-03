@@ -18,8 +18,15 @@ $borderColor: #faf9f6;
   border: 1px solid $borderColor;
 }
 
-::ng-deep .p-dialog .p-dialog-content {
+// ::ng-deep .p-dialog .p-dialog-content {
+//   display: grid;
+//   grid-template-columns: repeat(12, 1fr);
+//   grid-template-rows: repeat(12, 1fr);
+// }
+
+form {
   display: grid;
+  height: 100%;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(12, 1fr);
 }
@@ -29,6 +36,13 @@ $borderColor: #faf9f6;
   height: 40px;
   color: white;
   background: #121212;
+}
+
+.authButtons{
+  display: grid;
+  height: 100%;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
 }
 
 .signup {

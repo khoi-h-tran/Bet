@@ -1,37 +1,54 @@
 <p-dialog [(visible)]="display" [draggable]="false" [modal]="true" [closable]="false" [showHeader]="false">
-    <ng-container *ngIf="!signup && !login">
+    <div *ngIf="!signup && !login" class="authButtons">
         <p-button label="Sign up" class="signup" (onClick)="onAuthSelection($event)"></p-button>
         <p-button label="Login" class="login" (onClick)="onAuthSelection($event)"></p-button>
         <p-button label="Proceed as Guest" class="guest" (onClick)="onProceedAsGuest()"></p-button>
+    </div>
+    <ng-container *ngIf="signup">
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit($event)">
+            <div class="userName">
+                <label for="username" class="block">Username</label>
+                <input type="text" id="userName" name="userName" class="form-control" pInputText formControlName="userName"> 
+                <ng-container *ngIf="(signUpUserName.touched || signUpUserName.dirty) && signUpUserName.invalid">
+                    <small id="userName-help" class="p-error block">Username Required.</small>
+                </ng-container>
+            </div>
+            <div class="email">
+                <label for="email" class="block">E-mail</label>
+                <input type="email" id="email" name="email" class="form-control"  pInputText formControlName="email">
+                <ng-container *ngIf="(signUpEmail.touched || signUpEmail.dirty) && signUpEmail.invalid">
+                    <small id="email-help" class="p-error block">E-mail of proper format required.</small>
+                </ng-container>
+            </div>
+            <div class="password">
+                <label for="password" class="block">Password</label>
+                <p-password id="password" name="password" class="form-control" formControlName="password" [toggleMask]="true"></p-password>
+                <ng-container *ngIf="(signUpPassword.touched || signUpPassword.dirty) && signUpPassword.invalid">
+                    <small id="password-help" class="p-error block">Password Required.</small>
+                </ng-container>
+            </div>
+            <p-button class="goBack" icon="pi pi-caret-left" pTooltip="Go back" tooltipPosition="top" (onClick)="onResetAuth()"></p-button>
+            <p-button label="Signup" class="submitSignup" (onClick)="onSubmit($event)"></p-button>
+        </form>
     </ng-container>
-    <ng-container *ngIf="signup || login">
-        <div *ngIf="signup" class="userName">
-            <label for="username" class="block">Username</label>
-            <input type="text" id="username" name="username" class="form-control" required minlength="4" pInputText [(ngModel)]="userName" #username="ngModel"> 
-            <ng-container *ngIf="(username.touched || username.dirty) && username.invalid">
-                <small id="username-help" class="p-error block">{{invalidUserNameMsg}}</small>
-            </ng-container>
-        </div>
-
-        <div class="email">
-            <label for="email" class="block">E-mail</label>
-            <input type="email" id="email" name="email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required class="form-control"  pInputText [(ngModel)]="email" #emailInput="ngModel">
-            <ng-container *ngIf="(emailInput.touched || emailInput.dirty) && emailInput.invalid">
-                <small id="email-help" class="p-error block">{{invalidEmailMsg}}</small>
-            </ng-container>
-        </div>
-
-        <div class="password">
-            <label for="password" class="block">Password</label>
-            <p-password id="password" name="password" required class="form-control" [(ngModel)]="password" [toggleMask]="true" #passwordInput="ngModel"></p-password>
-            <ng-container *ngIf="(passwordInput.touched || passwordInput.dirty) && passwordInput.invalid">
-                <small id="password-help" class="p-error block">{{invalidPasswordMsg}}</small>
-            </ng-container>
-        </div>
-
-        <p-button *ngIf="signup" label="Signup" class="submitSignup" (onClick)="onSubmit($event)"></p-button>
-        <p-button *ngIf="login" label="Login" class="submitLogin" (onClick)="onSubmit($event)"></p-button>
-
-        <p-button class="goBack" icon="pi pi-caret-left" pTooltip="Go back" tooltipPosition="top" (onClick)="onResetAuth()"></p-button>
+    <ng-container *ngIf="login">
+        <form [formGroup]="logInForm" (ngSubmit)="onSubmit($event)">
+            <div class="email">
+                <label for="email" class="block">E-mail</label>
+                <input type="email" id="email" name="email" class="form-control"  pInputText formControlName="email">
+                <ng-container *ngIf="(logInEmail.touched || logInEmail.dirty) && logInEmail.invalid">
+                    <small id="email-help" class="p-error block">E-mail of proper format required.</small>
+                </ng-container>
+            </div>
+            <div class="password">
+                <label for="password" class="block">Password</label>
+                <p-password id="password" name="password" class="form-control" formControlName="password" [toggleMask]="true"></p-password>
+                <ng-container *ngIf="(logInPassword.touched || logInPassword.dirty) && logInPassword.invalid">
+                    <small id="password-help" class="p-error block">Password Required.</small>
+                </ng-container>
+            </div>
+            <p-button class="goBack" icon="pi pi-caret-left" pTooltip="Go back" tooltipPosition="top" (onClick)="onResetAuth()"></p-button>
+            <p-button label="Login" class="submitLogin" (onClick)="onSubmit($event)"></p-button>
+        </form>
     </ng-container>
 </p-dialog>

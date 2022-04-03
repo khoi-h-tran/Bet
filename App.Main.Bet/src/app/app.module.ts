@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TabViewModule } from 'primeng/tabview';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ToastModule } from 'primeng/toast';
@@ -56,7 +57,11 @@ import { ErrorPageComponent } from './features/error-page/error-page.component';
   imports: [
     AccordionModule,
     AppRoutingModule,
+    // This adds the user state feature - adds { userName: "", login: "" }
+    AuthModule,
     AvatarModule,
+    // This adds the bet state feature - adds { bet: { ufcEvents: [] }}
+    BetModule,
     BrowserAnimationsModule,
     BrowserModule,
     ButtonModule,
@@ -67,12 +72,9 @@ import { ErrorPageComponent } from './features/error-page/error-page.component';
     InputTextModule,
     PasswordModule,
     RadioButtonModule,
+    ReactiveFormsModule,
     // The root state - creates empty {} state
     StoreModule.forRoot({}),
-    // This adds the bet state feature - adds { bet: { ufcEvents: [] }}
-    BetModule,
-    // This adds the user state feature - adds { userName: "", login: "" }
-    AuthModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     TabMenuModule,
     TabViewModule,

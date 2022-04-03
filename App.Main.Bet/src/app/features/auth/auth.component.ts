@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-auth',
@@ -12,16 +14,36 @@ export class AuthComponent implements OnInit {
   login: boolean = false;
   // Sets the dialog to display
   display: boolean = true;
-  // input from user
-  userName: string = '';
-  email: string = '';
-  password: string = '';
-  // invalid message
-  invalidUserNameMsg: string = 'Invalid User Name';
-  invalidEmailMsg: string = 'Invalid E-mail Address';
-  invalidPasswordMsg: string = 'Invalid Password';
 
-  constructor() {}
+  signUpForm = this.fb.group({
+    userName: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+  });
+
+  logInForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+  });
+
+  get signUpUserName() {
+    return this.signUpForm.get('userName')!;
+  }
+  get signUpEmail() {
+    return this.signUpForm.get('email')!;
+  }
+  get signUpPassword() {
+    return this.signUpForm.get('password')!;
+  }
+
+  get logInEmail() {
+    return this.logInForm.get('email')!;
+  }
+  get logInPassword() {
+    return this.logInForm.get('password')!;
+  }
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {}
 
