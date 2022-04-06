@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
-import { IUserState } from '../app.state';
+import { User } from 'src/app/shared/models/user.model';
 
-export const loadUsers = createAction(
-  '[User] Load Users',
-  props<{ loadedUserData: IUserState }>()
+export const loadUser = createAction(
+  '[User] Load User',
+  props<{ user: User }>()
 );

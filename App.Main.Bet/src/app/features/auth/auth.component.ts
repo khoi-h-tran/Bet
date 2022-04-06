@@ -9,6 +9,18 @@ import { AuthService } from './auth.service';
 // PrimeNG
 import { MessageService } from 'primeng/api';
 
+// NGRx
+import { Store } from '@ngrx/store';
+import { loadUser } from 'src/app/app-state/actions/user.actions';
+import { Observable, of, switchMap, tap } from 'rxjs';
+
+// Models
+import { User } from 'src/app/shared/models/user.model';
+
+// Firebase
+import firebase from 'firebase/compat/app';
+import { IdTokenResult } from '@angular/fire/auth';
+
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -53,7 +65,8 @@ export class AuthComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private store: Store
   ) {}
 
   ngOnInit(): void {}
@@ -64,27 +77,78 @@ export class AuthComponent implements OnInit {
     buttonClicked === 'Sign up' ? (this.signup = true) : (this.login = true);
   }
 
-  onLogIn(event: any) {
-    let buttonClicked = event.target.innerText;
-
-    console.log(buttonClicked);
-    this.logInForm.reset();
-    // this.authService.login();
-  }
-
-  onSignUp(event: any) {
-    let buttonClicked = event.target.innerText;
+  onLogIn() {
+    let user: User;
 
     this.authService
-      .signUp(this.signUpEmail.value, this.signUpPassword.value)
-      .subscribe(
-        (userCredentials) => {
-          console.log(userCredentials);
-        },
-        (err) => {
+      .logIn(this.logInEmail.value, this.logInPassword.value)
+      .pipe(
+        tap((userCredentials) => {
+          user = this.createNewUser(userCredentials);
+        }),
+        switchMap((userCredentials: firebase.auth.UserCredential) => {
+          return this.authService.createUser(userCredentials);
+        })
+      )
+      .subscribe({
+        next: (idTokenResult: IdTokenResult) => {
+          this.addUserTokenData(idTokenResult, user);
+          this.logInForm.reset();
+        }, // completeHandler
+        error: (err) => {
           this.toastOutputError(err.message);
-        }
-      );
+        }, // errorHandler
+      });
+  }
+
+  onSignUp() {
+    let user: User;
+
+    this.authService
+      .signUp(
+        this.signUpUserName.value,
+        this.signUpEmail.value,
+        this.signUpPassword.value
+      )
+      .pipe(
+        tap((userCredentials) => {
+          user = this.createNewUser(userCredentials);
+        }),
+        switchMap((userCredentials: firebase.auth.UserCredential) => {
+          return this.authService.createUser(userCredentials);
+        })
+      )
+      .subscribe({
+        next: (idTokenResult: IdTokenResult) => {
+          this.addUserTokenData(idTokenResult, user);
+          this.signUpForm.reset();
+        }, // completeHandler
+        error: (err) => {
+          this.toastOutputError(err.message);
+        }, // errorHandler
+      });
+  }
+
+  // signin/login helper methods
+  createNewUser(userCredentials: firebase.auth.UserCredential) {
+    return new User(
+      userCredentials.user?.displayName
+        ? userCredentials.user?.displayName
+        : '',
+      userCredentials.user?.email ? userCredentials.user?.email : '',
+      userCredentials.user?.uid ? userCredentials.user?.uid : '',
+      '',
+      userCredentials.user?.refreshToken
+        ? userCredentials.user?.refreshToken
+        : ''
+    );
+  }
+
+  addUserTokenData(idTokenResult: IdTokenResult, user: User) {
+    user.ExpirationDate = idTokenResult.expirationTime;
+    user.accessToken = idTokenResult.token;
+
+    this.store.dispatch(loadUser({ user }));
   }
 
   onResetAuth() {

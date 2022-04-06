@@ -3,16 +3,15 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ufcTestDataTS } from 'src/app/shared/test-data/UFCEventsTestData';
 import * as betSelectors from './bet.selectors';
 import { IUFCEvents } from 'src/app/shared/models/ufc-events.model';
-import { IAppState, IBetState, IUserState } from '../app.state';
+import { IAppState, IBetState } from '../app.state';
+import { userTestData } from 'src/app/shared/test-data/user-test-data';
+import { User } from 'src/app/shared/models/user.model';
 
 describe('Bet Selectors', () => {
   let store: MockStore;
 
   const initialBetState: IBetState = { ufcEvents: ufcTestDataTS };
-  const initialUserState: IUserState = {
-    userName: '',
-    login: '',
-  };
+  const initialUserState: User = userTestData;
 
   const projectorState: IAppState = {
     bet: initialBetState,
@@ -21,10 +20,7 @@ describe('Bet Selectors', () => {
 
   const initialState: IAppState = {
     bet: { ufcEvents: ufcTestDataTS },
-    user: {
-      userName: '',
-      login: '',
-    },
+    user: new User('', '', '', '', '', new Date()),
   };
 
   let ufcEventsFromSelector: ReadonlyArray<IUFCEvents> = [];

@@ -3,15 +3,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, from, Observable, tap } from 'rxjs';
 
 // Firebase
-// import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-// import { AngularFireAuth } from '@angular/fire/compat/auth';
-// import firebase from 'firebase/compat/app';
-// import { AngularFireAuth } from '@angular/fire/compat/auth';
-// import firebase from 'firebase/compat/app';
-// import { provideAuth } from '@angular/fire/auth';
-
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
+import { IdTokenResult } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -22,33 +16,38 @@ export class AuthService {
   constructor(public auth: AngularFireAuth) {}
 
   signUp(
+    userName: string,
     email: string,
     password: string
   ): Observable<firebase.auth.UserCredential> {
     // Note: from converts promise returned to observable
     return from(this.auth.createUserWithEmailAndPassword(email, password)).pipe(
-      tap((userCrendentials) => this.log('created user.')),
+      tap((userCrendentials) => {
+        this.log('created user.');
+        userCrendentials.user?.updateProfile({ displayName: userName });
+      }),
       catchError(this.handleError('signUp'))
     ) as Observable<firebase.auth.UserCredential>;
   }
 
-  // login() {
-  //   this.auth.createUserWithEmailAndPassword();
-  // }
+  logIn(
+    email: string,
+    password: string
+  ): Observable<firebase.auth.UserCredential> {
+    // Note: from converts promise returned to observable
+    return from(this.auth.signInWithEmailAndPassword(email, password)).pipe(
+      tap((userCrendentials) => {
+        this.log('logged in user.');
+      }),
+      catchError(this.handleError('logIn'))
+    ) as Observable<firebase.auth.UserCredential>;
+  }
 
-  // login(email: string, password: string) {
-  //   createUserWithEmailAndPassword(this.auth, email, password)
-  //     .then((userCredential) => {
-  //       // Signed in
-  //       const user = userCredential.user;
-  //       // ...
-  //     })
-  //     .catch((error) => {
-  //       const errorCode = error.code;
-  //       const errorMessage = error.message;
-  //       // ..
-  //     });
-  // }
+  createUser(
+    userCredentials: firebase.auth.UserCredential
+  ): Observable<IdTokenResult> {
+    return from(userCredentials.user?.getIdTokenResult(true)!);
+  }
 
   /**
    * Returns a function that handles Http operation failures.

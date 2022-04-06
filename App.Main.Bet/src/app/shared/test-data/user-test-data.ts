@@ -1,6 +1,9 @@
-import { IUser } from '../models/user.model';
+import { User } from '../models/user.model';
 
-export const userTestData: IUser = {
-  userName: 'khoi@gmail.com',
-  login: 'testlogin',
-};
+export const userTestData: User = new User(
+  'testUserName',
+  'testEmail',
+  'testUserID',
+  'testAccessToken',
+  'testRefreshToken'
+);

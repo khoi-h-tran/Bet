@@ -6,7 +6,7 @@
         <p-button label="Proceed as Guest" class="guest" (onClick)="onProceedAsGuest()"></p-button>
     </div>
     <ng-container *ngIf="signup">
-        <form [formGroup]="signUpForm" (ngSubmit)="onSignUp($event)">
+        <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
             <div class="userName">
                 <label for="username" class="block">Username</label>
                 <input type="text" id="userName" name="userName" class="form-control" pInputText formControlName="userName"> 
@@ -33,7 +33,7 @@
         </form>
     </ng-container>
     <ng-container *ngIf="login">
-        <form [formGroup]="logInForm" (ngSubmit)="onLogIn($event)">
+        <form [formGroup]="logInForm" (ngSubmit)="onLogIn()">
             <div class="email">
                 <label for="email" class="block">E-mail</label>
                 <input type="email" id="email" name="email" class="form-control"  pInputText formControlName="email">
