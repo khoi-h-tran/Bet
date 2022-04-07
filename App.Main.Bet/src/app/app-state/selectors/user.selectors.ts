@@ -10,6 +10,12 @@ export const selectAccessToken = createSelector(
   (state: User) => state.accessToken
 );
 
+// Within the user feature, select the access token
+export const selectUserID = createSelector(
+  selectUserFeature,
+  (state: User) => state.userID
+);
+
 // Within the user feature, select the user name
 // export const selectUserName = createSelector(
 //   selectUserFeature,

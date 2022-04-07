@@ -7,17 +7,19 @@ import {
 import { Injectable } from '@angular/core';
 
 // NGRx
-import { of, Observable } from 'rxjs';
+import { of, Observable, from } from 'rxjs';
 import { catchError, exhaustMap, map, take, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 // Models
 import { IUFCEvents } from '../../shared/models/ufc-events.model';
-import { IBetPlacement } from 'src/app/shared/models/bet.model';
+import { IBet } from 'src/app/shared/models/bet.model';
 
 // Envrionment
 import { environment } from '../../../environments/environment';
-import { selectAccessToken } from 'src/app/app-state/selectors/user.selectors';
+
+// Firebase
+import { getDatabase, ref, set } from 'firebase/database';
 
 @Injectable({
   providedIn: 'root',
@@ -36,22 +38,18 @@ export class BetService {
   }
 
   // TODO: UNIT TEST THIS
-  addBet(key: string, selectedFighter: IBetPlacement): Observable<any> {
-    return this.http
-      .put(`${environment.urlBetDB}${key}.json`, selectedFighter)
-      .pipe(
-        tap((betPlacementResponse) => this.log('placed bet')),
-        catchError(this.handleError('onPlaceBet'))
-      ) as Observable<any>;
+  placeBet(betPlacement: IBet): Observable<any> {
+    const db = getDatabase();
+    let documentKey: string = `${betPlacement.eventName}_${betPlacement.cardType}_${betPlacement.eventWeightClass}_${betPlacement.eventMatchUp}`;
+    return from(
+      set(ref(db, `bets/${betPlacement.userID}/${documentKey}`), {
+        eventName: betPlacement.eventName,
+        cardType: betPlacement.cardType,
+        eventWeightClass: betPlacement.eventWeightClass,
+        selectedFighter: betPlacement.selectedFighter,
+      })
+    );
   }
-
-  // addBet(betPlacement: IBetPlacement): Observable<any> {
-  //   console.log(environment.urlBetDB);
-  //   return this.http.put(environment.urlBetDB, betPlacement).pipe(
-  //     tap((betPlacementResponse) => this.log('placed bet')),
-  //     catchError(this.handleError('onPlaceBet'))
-  //   ) as Observable<any>;
-  // }
 
   /**
    * Returns a function that handles Http operation failures.

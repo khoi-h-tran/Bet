@@ -19,7 +19,7 @@ describe('User Selectors', () => {
 
   const initialState: IAppState = {
     bet: { ufcEvents: ufcTestDataTS },
-    user: new User('', '', '', '', '', new Date()),
+    user: new User('', '', '', '', ''),
   };
 
   beforeEach(() => {
@@ -31,9 +31,9 @@ describe('User Selectors', () => {
   });
 
   it('should return a selection of user name', () => {
-    expect(userSelectors.selectUserName.projector(initialState.user)).toBe(
-      initialState.user.userName
-    );
+    expect(
+      userSelectors.selectAccessToken.projector(initialState.user.accessToken)
+    ).toBe(initialState.user.accessToken);
   });
 
   // it('should return a selection of login', () => {

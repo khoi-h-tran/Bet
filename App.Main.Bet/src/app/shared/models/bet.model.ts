@@ -1,7 +1,8 @@
-// export interface IBetPlacement {
-//   [betKey: string]: { selectedFighter: string };
-// }
-
-export interface IBetPlacement {
+export interface IBet {
+  userID: string;
+  eventName: string;
+  cardType: string;
+  eventWeightClass: string;
+  eventMatchUp: string;
   selectedFighter: string;
 }

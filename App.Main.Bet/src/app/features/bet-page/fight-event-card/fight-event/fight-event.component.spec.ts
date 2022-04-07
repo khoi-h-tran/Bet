@@ -8,11 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { AvatarModule } from 'primeng/avatar';
 import { CardModule } from 'primeng/card';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import {
-  IBetPlacement,
-  ICard,
-  IEvent,
-} from 'src/app/shared/models/ufc-events.model';
+import { ICard, IEvent } from 'src/app/shared/models/ufc-events.model';
+import { IBetPlacement } from 'src/app/shared/models/bet.model';
 import { ufcTestDataTS } from 'src/app/shared/test-data/UFCEventsTestData';
 
 import { FightEventComponent } from './fight-event.component';
@@ -148,10 +145,10 @@ describe('FightEventComponent', () => {
   it('should onPlaceBet should create bet objects as expected', () => {
     // Note: In test data, only robert wittaker has a bet placed, so we will only test this bet placement
     let testBet1: IBetPlacement = {
-      userID: 'tempId123',
-      eventName: 'UFC 271',
-      cardType: 'Main Card',
-      eventWeightClass: 'Middleweight',
+      // userID: 'tempId123',
+      // eventName: 'UFC 271',
+      // cardType: 'Main Card',
+      // eventWeightClass: 'Middleweight',
       selectedFighter: 'Robert Wittaker',
     };
     component.onPlaceBet(0);
