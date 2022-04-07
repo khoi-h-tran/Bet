@@ -1,12 +1,23 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+// Angular
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+// NGRx
 import { of, Observable } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-import { IUFCEvents } from '../../shared/models/ufc-events.model';
+import { catchError, exhaustMap, map, take, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 
-import { environment } from '../../../environments/environment';
+// Models
+import { IUFCEvents } from '../../shared/models/ufc-events.model';
 import { IBetPlacement } from 'src/app/shared/models/bet.model';
+
+// Envrionment
+import { environment } from '../../../environments/environment';
+import { selectAccessToken } from 'src/app/app-state/selectors/user.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +26,7 @@ export class BetService {
   readonly ufcDataURL =
     'https://raw.githubusercontent.com/khoi-h-tran/TestJSONData/master/UFCEventsTestData.json';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private store: Store) {}
 
   getUFCEvents(): Observable<Array<IUFCEvents>> {
     return this.http.get<IUFCEvents[]>(environment.urlTestJSONData).pipe(
@@ -26,7 +37,6 @@ export class BetService {
 
   // TODO: UNIT TEST THIS
   addBet(key: string, selectedFighter: IBetPlacement): Observable<any> {
-    console.log(`${environment.urlBetDB}${key}.json`);
     return this.http
       .put(`${environment.urlBetDB}${key}.json`, selectedFighter)
       .pipe(

@@ -20,7 +20,7 @@ describe('Bet Selectors', () => {
 
   const initialState: IAppState = {
     bet: { ufcEvents: ufcTestDataTS },
-    user: new User('', '', '', '', '', new Date()),
+    user: new User('', '', '', '', ''),
   };
 
   let ufcEventsFromSelector: ReadonlyArray<IUFCEvents> = [];

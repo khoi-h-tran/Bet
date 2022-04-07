@@ -20,13 +20,6 @@ export class User {
     this.refreshToken = refreshToken;
   }
 
-  public get AccessToken() {
-    if (this.accessToken == null || new Date() > this.expirationDate) {
-      return null;
-    }
-    return this.accessToken;
-  }
-
   public set ExpirationDate(expirationDate: string) {
     this.expirationDate = new Date(expirationDate);
   }

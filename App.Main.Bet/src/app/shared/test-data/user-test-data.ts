@@ -4,6 +4,6 @@ export const userTestData: User = new User(
   'testUserName',
   'testEmail',
   'testUserID',
-  'testAccessToken',
+  '',
   'testRefreshToken'
 );

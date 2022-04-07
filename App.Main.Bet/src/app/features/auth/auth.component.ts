@@ -20,6 +20,7 @@ import { User } from 'src/app/shared/models/user.model';
 // Firebase
 import firebase from 'firebase/compat/app';
 import { IdTokenResult } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -66,7 +67,8 @@ export class AuthComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private messageService: MessageService,
-    private store: Store
+    private store: Store,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -94,6 +96,7 @@ export class AuthComponent implements OnInit {
         next: (idTokenResult: IdTokenResult) => {
           this.addUserTokenData(idTokenResult, user);
           this.logInForm.reset();
+          this.router.navigate(['/bet']);
         }, // completeHandler
         error: (err) => {
           this.toastOutputError(err.message);
@@ -101,6 +104,7 @@ export class AuthComponent implements OnInit {
       });
   }
 
+  // TODO: unsubscribe from all subscriptions
   onSignUp() {
     let user: User;
 
@@ -122,6 +126,7 @@ export class AuthComponent implements OnInit {
         next: (idTokenResult: IdTokenResult) => {
           this.addUserTokenData(idTokenResult, user);
           this.signUpForm.reset();
+          this.router.navigate(['/bet']);
         }, // completeHandler
         error: (err) => {
           this.toastOutputError(err.message);

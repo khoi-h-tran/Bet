@@ -1,6 +1,6 @@
 // Angular
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -42,6 +42,7 @@ import { NavbarComponent } from './features/navbar/navbar.component';
 import { StatisticsPageComponent } from './features/statistics-page/statistics-page.component';
 import { AuthComponent } from './features/auth/auth.component';
 import { ErrorPageComponent } from './features/error-page/error-page.component';
+import { AuthInterceptorService } from './features/auth/auth-interceptor.service';
 
 // Firebase
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -95,6 +96,11 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
     Title,
     MessageService,
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
