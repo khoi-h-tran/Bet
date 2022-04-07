@@ -83,18 +83,25 @@ export class AuthComponent implements OnInit {
     let user: User;
 
     this.authService
+      // logging in through firebase
       .logIn(this.logInEmail.value, this.logInPassword.value)
       .pipe(
+        // once login is successful, use credentials to populate user data (access token must be retrieved after)
         tap((userCredentials) => {
           user = this.createNewUser(userCredentials);
         }),
+        // switch map so we can get the token data (firebase makes us get this using a promise after the user credentials are retrieved)
         switchMap((userCredentials: firebase.auth.UserCredential) => {
-          return this.authService.createUser(userCredentials);
+          return this.authService.getTokenData(userCredentials);
         })
       )
+      // after the initial user data was populated and we have the access token data returned as an observable
       .subscribe({
         next: (idTokenResult: IdTokenResult) => {
+          // add the access token data
           this.addUserTokenData(idTokenResult, user);
+          // start the auto log-out timer (logs out upon token expiry)
+          this.authService.autoLogOut(idTokenResult.expirationTime);
           this.logInForm.reset();
           this.router.navigate(['/bet']);
         }, // completeHandler
@@ -105,6 +112,7 @@ export class AuthComponent implements OnInit {
   }
 
   // TODO: unsubscribe from all subscriptions
+  // Same logic as Sign in
   onSignUp() {
     let user: User;
 
@@ -119,12 +127,13 @@ export class AuthComponent implements OnInit {
           user = this.createNewUser(userCredentials);
         }),
         switchMap((userCredentials: firebase.auth.UserCredential) => {
-          return this.authService.createUser(userCredentials);
+          return this.authService.getTokenData(userCredentials);
         })
       )
       .subscribe({
         next: (idTokenResult: IdTokenResult) => {
           this.addUserTokenData(idTokenResult, user);
+          this.authService.autoLogOut(idTokenResult.expirationTime);
           this.signUpForm.reset();
           this.router.navigate(['/bet']);
         }, // completeHandler

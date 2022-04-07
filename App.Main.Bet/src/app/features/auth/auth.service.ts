@@ -6,14 +6,23 @@ import { catchError, from, Observable, tap } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 import { IdTokenResult } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { loadUser } from 'src/app/app-state/actions/user.actions';
+import { userTestData } from 'src/app/shared/test-data/user-test-data';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   userData: any; // Save logged in user data
+  private tokenExpirationTimer: any; // keeps track of our auto log out
 
-  constructor(public auth: AngularFireAuth) {}
+  constructor(
+    public auth: AngularFireAuth,
+    private router: Router,
+    private store: Store
+  ) {}
 
   signUp(
     userName: string,
@@ -43,10 +52,32 @@ export class AuthService {
     ) as Observable<firebase.auth.UserCredential>;
   }
 
-  createUser(
+  getTokenData(
     userCredentials: firebase.auth.UserCredential
   ): Observable<IdTokenResult> {
     return from(userCredentials.user?.getIdTokenResult(true)!);
+  }
+
+  logOut() {
+    this.store.dispatch(loadUser({ user: userTestData }));
+    this.router.navigate(['/auth']);
+    // if we have a timer, remove it on log out
+    this.clearAutoLogOut();
+  }
+
+  clearAutoLogOut() {
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
+  }
+
+  autoLogOut(expiresAt: string) {
+    let expiresIn: number =
+      new Date(expiresAt).getTime() - new Date().getTime();
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logOut();
+    }, expiresIn);
   }
 
   /**

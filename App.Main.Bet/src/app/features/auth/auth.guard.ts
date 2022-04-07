@@ -9,12 +9,17 @@ import {
 import { Store } from '@ngrx/store';
 import { map, Observable, take, tap } from 'rxjs';
 import { selectAccessToken } from 'src/app/app-state/selectors/user.selectors';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private store: Store, private router: Router) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -33,9 +38,13 @@ export class AuthGuard implements CanActivate {
         // i.e. the first ! converts it to a boolean (but it's inverted). The second converts it to the correct boolean we want.
         (accessToken) => {
           const isAuth = !!accessToken;
+          // if we are authenticated
           if (isAuth) {
             return true;
           }
+          // if unauthenticated, re-route to auth
+          // reset the timer in the auth service for auto logout
+          this.authService.clearAutoLogOut();
           return this.router.createUrlTree(['/auth']);
         }
       )
