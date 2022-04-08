@@ -103,8 +103,9 @@ export class FightEventComponent implements OnInit {
       });
   }
 
+  // Note: this is not actually removing spaces, but the option is there if required in the future.
   removeSpaces(inputString: string): string {
-    return inputString.replace(/\s/g, '');
+    return inputString.replace(/\s/g, ' ');
   }
 
   // callServiceAddBet(

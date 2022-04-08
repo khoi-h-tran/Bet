@@ -19,7 +19,14 @@ import { IBet } from 'src/app/shared/models/bet.model';
 import { environment } from '../../../environments/environment';
 
 // Firebase
-import { getDatabase, ref, set } from 'firebase/database';
+import {
+  getDatabase,
+  ref,
+  set,
+  child,
+  get,
+  DataSnapshot,
+} from 'firebase/database';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +42,11 @@ export class BetService {
       tap((ufcEvents) => this.log('fetched ufc events')),
       catchError(this.handleError('getUFCEvents'))
     ) as Observable<Array<IUFCEvents>>;
+  }
+
+  getUsersBets(userId: string): Observable<DataSnapshot> {
+    const dbRef = ref(getDatabase());
+    return from(get(child(dbRef, `bets/${userId}`)));
   }
 
   // TODO: UNIT TEST THIS
