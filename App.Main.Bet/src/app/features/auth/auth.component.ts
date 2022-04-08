@@ -35,6 +35,8 @@ export class AuthComponent implements OnInit {
   // Sets the dialog to display
   display: boolean = true;
 
+  // Note: Created separate forms for sign-up and log-in because if you nest form validation in directives like NgIf, it doesn't work.
+  // e.g. NgIf within an NgIf. It no longer recognizes where or not the form is valid. So I had to spread out the logic.
   signUpForm = this.fb.group({
     userName: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
