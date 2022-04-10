@@ -3,14 +3,14 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ufcTestDataTS } from 'src/app/shared/test-data/UFCEventsTestData';
 import * as userSelectors from './user.selectors';
 import { IBetState, IAppState } from '../app.state';
-import { userTestData } from 'src/app/shared/test-data/user-test-data';
+import { unAuthUserTestData } from 'src/app/shared/test-data/user-test-data';
 import { User } from 'src/app/shared/models/user.model';
 
 describe('User Selectors', () => {
   let store: MockStore;
 
   const initialBetState: IBetState = { ufcEvents: ufcTestDataTS };
-  const initialUserState: User = userTestData;
+  const initialUserState: User = unAuthUserTestData;
 
   const projectorState: IAppState = {
     bet: initialBetState,
@@ -19,8 +19,11 @@ describe('User Selectors', () => {
 
   const initialState: IAppState = {
     bet: { ufcEvents: ufcTestDataTS },
-    user: new User('', '', '', '', ''),
+    user: initialUserState,
   };
+
+  let accessTokenFromSelector: string;
+  let userIDFromSelector: string;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -30,15 +33,29 @@ describe('User Selectors', () => {
     store = TestBed.inject(MockStore);
   });
 
-  it('should return a selection of user name', () => {
-    expect(
-      userSelectors.selectAccessToken.projector(initialState.user.accessToken)
-    ).toBe(initialState.user.accessToken);
+  it('should return a selection of UFC events', () => {
+    store
+      .select(userSelectors.selectAccessToken)
+      .subscribe((accessToken) => (accessTokenFromSelector = accessToken));
+    expect(accessTokenFromSelector).toEqual(unAuthUserTestData.accessToken);
   });
 
-  // it('should return a selection of login', () => {
-  //   expect(userSelectors.selectLogin.projector(initialState.user)).toBe(
-  //     initialState.user.login
-  //   );
-  // });
+  it('should use projector to verify feature selection', () => {
+    expect(userSelectors.selectAccessToken.projector(initialState.user)).toBe(
+      initialState.user.accessToken
+    );
+  });
+
+  it('should return a selection of UFC events', () => {
+    store
+      .select(userSelectors.selectUserID)
+      .subscribe((userID) => (userIDFromSelector = userID));
+    expect(userIDFromSelector).toEqual(unAuthUserTestData.userID);
+  });
+
+  it('should use projector to verify feature selection', () => {
+    expect(userSelectors.selectUserID.projector(initialState.user)).toBe(
+      initialState.user.userID
+    );
+  });
 });

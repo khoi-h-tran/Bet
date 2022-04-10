@@ -9,7 +9,7 @@ import { IdTokenResult } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loadUser } from 'src/app/app-state/actions/user.actions';
-import { userTestData } from 'src/app/shared/test-data/user-test-data';
+import { unAuthUserTestData } from 'src/app/shared/test-data/user-test-data';
 
 @Injectable({
   providedIn: 'root',
@@ -47,6 +47,7 @@ export class AuthService {
     return from(this.auth.signInWithEmailAndPassword(email, password)).pipe(
       tap((userCrendentials) => {
         this.log('logged in user.');
+        console.log(userCrendentials);
       }),
       catchError(this.handleError('logIn'))
     ) as Observable<firebase.auth.UserCredential>;
@@ -59,7 +60,7 @@ export class AuthService {
   }
 
   logOut() {
-    this.store.dispatch(loadUser({ user: userTestData }));
+    this.store.dispatch(loadUser({ user: unAuthUserTestData }));
     this.router.navigate(['/auth']);
     // if we have a timer, remove it on log out
     this.clearAutoLogOut();
@@ -102,7 +103,7 @@ export class AuthService {
     };
   }
 
-  private log(message: string) {
+  public log(message: string) {
     console.log('AuthService: ' + message);
   }
 }

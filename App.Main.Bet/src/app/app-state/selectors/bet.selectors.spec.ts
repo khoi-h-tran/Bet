@@ -4,14 +4,14 @@ import { ufcTestDataTS } from 'src/app/shared/test-data/UFCEventsTestData';
 import * as betSelectors from './bet.selectors';
 import { IUFCEvents } from 'src/app/shared/models/ufc-events.model';
 import { IAppState, IBetState } from '../app.state';
-import { userTestData } from 'src/app/shared/test-data/user-test-data';
+import { unAuthUserTestData } from 'src/app/shared/test-data/user-test-data';
 import { User } from 'src/app/shared/models/user.model';
 
 describe('Bet Selectors', () => {
   let store: MockStore;
 
   const initialBetState: IBetState = { ufcEvents: ufcTestDataTS };
-  const initialUserState: User = userTestData;
+  const initialUserState: User = unAuthUserTestData;
 
   const projectorState: IAppState = {
     bet: initialBetState,
