@@ -16,7 +16,7 @@ import { unAuthUserTestData } from 'src/app/shared/test-data/user-test-data';
 })
 export class AuthService {
   userData: any; // Save logged in user data
-  private tokenExpirationTimer: any; // keeps track of our auto log out
+  tokenExpirationTimer: any; // keeps track of our auto log out
 
   constructor(
     public auth: AngularFireAuth,

@@ -178,7 +178,8 @@ export class AuthComponent implements OnInit {
   }
 
   // signin/login helper methods
-  createNewUser(userCredentials: firebase.auth.UserCredential) {
+  // createNewUser(userCredentials: firebase.auth.UserCredential) {
+  createNewUser(userCredentials: any) {
     return new User(
       userCredentials.user?.displayName
         ? userCredentials.user?.displayName
@@ -202,10 +203,6 @@ export class AuthComponent implements OnInit {
   onResetAuth() {
     this.signup = false;
     this.login = false;
-  }
-
-  onProceedAsGuest() {
-    console.log('Proceed as guest');
   }
 
   toastOutputError(errorMessage: string) {

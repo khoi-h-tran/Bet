@@ -9,19 +9,50 @@ import { BetService } from './bet.service';
 import { IUFCEvents } from '../../shared/models/ufc-events.model';
 import * as ufcTestDataJSON from '../../shared/test-data/UFCEventsTestData.json';
 import { ufcTestDataTS } from '../../shared/test-data/UFCEventsTestData';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+
+import { provideDatabase, getDatabase, Database } from '@angular/fire/database';
+import { FirebaseApp } from '@angular/fire/app';
+import { LoginUserCredTestData } from 'src/app/shared/test-data/LoginUserCredentialsTestData';
+import { BetPlacementTestData } from 'src/app/shared/test-data/BetPlacementTestData';
+
+// const mockFirebaseApp: FirebaseApp = {
+//   name: '',
+//   options: {},
+//   automaticDataCollectionEnabled: false
+// }
+
+// const mockDatabase: Database = {
+//   app: mockFirebaseApp,
+//   type: 'database'
+// }
+
+// const getDatabaseMock(app?: FirebaseApp | undefined, url?: string | undefined): Database => {
+
+// }
 
 describe('BetService', () => {
   let betService: BetService;
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
+  let store: MockStore;
 
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
     TestBed.configureTestingModule({
-      providers: [BetService, { provide: HttpClient, useValue: httpClientSpy }],
+      providers: [
+        BetService,
+        { provide: HttpClient, useValue: httpClientSpy },
+        provideMockStore({
+          selectors: [],
+        }),
+      ],
     });
 
     betService = TestBed.inject(BetService);
     httpClientSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
+
+    store = TestBed.inject(MockStore);
+    spyOn(store, 'dispatch').and.callThrough();
   });
 
   it('should be created', () => {
@@ -78,5 +109,21 @@ describe('BetService', () => {
         done();
       },
     });
+  });
+
+  it('should call getUserBets', () => {
+    const betServiceSpy = spyOn(betService, 'getUsersBets');
+
+    betService.getUsersBets(LoginUserCredTestData.user.uid);
+
+    expect(betServiceSpy).toHaveBeenCalled();
+  });
+
+  it('should call placeBet', () => {
+    const betServiceSpy = spyOn(betService, 'placeBet');
+
+    betService.placeBet(BetPlacementTestData);
+
+    expect(betServiceSpy).toHaveBeenCalled();
   });
 });

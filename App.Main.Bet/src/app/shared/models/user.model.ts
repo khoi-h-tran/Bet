@@ -4,7 +4,7 @@ export class User {
   public userID: string = '';
   public accessToken: string = '';
   public refreshToken: string = '';
-  private expirationDate: Date = new Date(2000, 1, 1); // sets old date
+  public expirationDate: Date = new Date(2000, 1, 1); // sets old date
 
   public constructor(
     userName: string,
