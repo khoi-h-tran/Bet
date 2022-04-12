@@ -24,11 +24,7 @@ export class AuthService {
     private store: Store
   ) {}
 
-  signUp(
-    userName: string,
-    email: string,
-    password: string
-  ): Observable<firebase.auth.UserCredential> {
+  signUp(userName: string, email: string, password: string): Observable<any> {
     // Note: from converts promise returned to observable
     return from(this.auth.createUserWithEmailAndPassword(email, password)).pipe(
       tap((userCrendentials) => {
@@ -39,10 +35,7 @@ export class AuthService {
     ) as Observable<firebase.auth.UserCredential>;
   }
 
-  logIn(
-    email: string,
-    password: string
-  ): Observable<firebase.auth.UserCredential> {
+  logIn(email: string, password: string): Observable<any> {
     // Note: from converts promise returned to observable
     return from(this.auth.signInWithEmailAndPassword(email, password)).pipe(
       tap((userCrendentials) => {
@@ -50,12 +43,10 @@ export class AuthService {
         console.log(userCrendentials);
       }),
       catchError(this.handleError('logIn'))
-    ) as Observable<firebase.auth.UserCredential>;
+    ) as Observable<any>;
   }
 
-  getTokenData(
-    userCredentials: firebase.auth.UserCredential
-  ): Observable<IdTokenResult> {
+  getTokenData(userCredentials: firebase.auth.UserCredential): Observable<any> {
     return from(userCredentials.user?.getIdTokenResult(true)!);
   }
 

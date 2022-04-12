@@ -21,14 +21,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PasswordModule } from 'primeng/password';
 import { SignupUserCredTestData } from 'src/app/shared/test-data/SignupUserCredentialsTestData';
 import { User } from 'src/app/shared/models/user.model';
-import { LoginUserCredTestData } from 'src/app/shared/test-data/LoginUserCredentialsTestData';
+import {
+  accessTokenMock,
+  LoginUserCredTestData,
+} from 'src/app/shared/test-data/LoginUserCredentialsTestData';
 import { MockIDTokenResult } from 'src/app/shared/test-data/mockIDTokenResult';
+import { AuthService } from './auth.service';
+import { of, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
-fdescribe('AuthComponent', () => {
+describe('AuthComponent', () => {
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
   let store: MockStore;
+  let messageService: MessageService;
+  let authService: AuthService;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -44,6 +53,7 @@ fdescribe('AuthComponent', () => {
       ],
       providers: [
         MessageService,
+        AuthService,
         { provide: AngularFireAuth, useClass: AngularFireAuthMock },
         { provide: HttpClient, useValue: httpClientSpy },
         provideMockStore({
@@ -53,6 +63,9 @@ fdescribe('AuthComponent', () => {
       declarations: [AuthComponent],
     }).compileComponents();
 
+    router = TestBed.inject(Router);
+    messageService = TestBed.inject(MessageService);
+    authService = TestBed.inject(AuthService);
     httpClientSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
     store = TestBed.inject(MockStore);
     spyOn(store, 'dispatch').and.callThrough();
@@ -244,7 +257,6 @@ fdescribe('AuthComponent', () => {
 
     let goBackButton = authPageElement.querySelector('.goBack button');
 
-    console.log(goBackButton);
     goBackButton.click();
     tick();
     fixture.detectChanges();
@@ -269,7 +281,6 @@ fdescribe('AuthComponent', () => {
 
     let goBackButton = authPageElement.querySelector('.goBack button');
 
-    console.log(goBackButton);
     goBackButton.click();
     tick();
     fixture.detectChanges();
@@ -343,5 +354,109 @@ fdescribe('AuthComponent', () => {
       new Date(MockIDTokenResult.expirationTime)
     );
     expect(testLoginUser.accessToken).toEqual(MockIDTokenResult.token);
+  });
+
+  it('should add toast message', () => {
+    spyOn(messageService, 'add');
+
+    component.toastOutputError('test error');
+
+    expect(messageService.add).toHaveBeenCalled();
+  });
+
+  it('should log in guest', () => {
+    spyOn(authService, 'logIn').and.returnValue(of(LoginUserCredTestData));
+    spyOn(authService, 'getTokenData').and.returnValue(of(accessTokenMock));
+    spyOn(component, 'addUserTokenData');
+    spyOn(authService, 'autoLogOut');
+    const navigateSpy = spyOn(router, 'navigate');
+
+    component.onGuestLogIn();
+
+    expect(authService.logIn).toHaveBeenCalled();
+    expect(authService.getTokenData).toHaveBeenCalled();
+    expect(component.addUserTokenData).toHaveBeenCalled();
+    expect(authService.autoLogOut).toHaveBeenCalled();
+    expect(navigateSpy).toHaveBeenCalledWith(['/bet']);
+  });
+
+  it('should return error for guest login', () => {
+    spyOn(authService, 'logIn').and.returnValue(
+      throwError(() => new Error('test'))
+    );
+    spyOn(authService, 'getTokenData').and.returnValue(
+      throwError(() => new Error('test'))
+    );
+    spyOn(messageService, 'add');
+    spyOn(component, 'toastOutputError').and.callThrough();
+
+    component.onGuestLogIn();
+
+    expect(component.toastOutputError).toHaveBeenCalled();
+    expect(messageService.add).toHaveBeenCalled();
+  });
+
+  it('should log in', () => {
+    spyOn(authService, 'logIn').and.returnValue(of(LoginUserCredTestData));
+    spyOn(authService, 'getTokenData').and.returnValue(of(accessTokenMock));
+    spyOn(component, 'addUserTokenData');
+    spyOn(authService, 'autoLogOut');
+    const navigateSpy = spyOn(router, 'navigate');
+
+    component.onLogIn();
+
+    expect(authService.logIn).toHaveBeenCalled();
+    expect(authService.getTokenData).toHaveBeenCalled();
+    expect(component.addUserTokenData).toHaveBeenCalled();
+    expect(authService.autoLogOut).toHaveBeenCalled();
+    expect(navigateSpy).toHaveBeenCalledWith(['/bet']);
+  });
+
+  it('should return error for login', () => {
+    spyOn(authService, 'logIn').and.returnValue(
+      throwError(() => new Error('test'))
+    );
+    spyOn(authService, 'getTokenData').and.returnValue(
+      throwError(() => new Error('test'))
+    );
+    spyOn(messageService, 'add');
+    spyOn(component, 'toastOutputError').and.callThrough();
+
+    component.onLogIn();
+
+    expect(component.toastOutputError).toHaveBeenCalled();
+    expect(messageService.add).toHaveBeenCalled();
+  });
+
+  it('should signup', () => {
+    spyOn(authService, 'signUp').and.returnValue(of(SignupUserCredTestData));
+    spyOn(authService, 'getTokenData').and.returnValue(of(accessTokenMock));
+    spyOn(component, 'addUserTokenData');
+    spyOn(authService, 'autoLogOut');
+    const navigateSpy = spyOn(router, 'navigate');
+
+    component.onSignUp();
+
+    expect(authService.signUp).toHaveBeenCalled();
+    expect(authService.getTokenData).toHaveBeenCalled();
+    expect(component.addUserTokenData).toHaveBeenCalled();
+    expect(authService.autoLogOut).toHaveBeenCalled();
+    expect(navigateSpy).toHaveBeenCalledWith(['/bet']);
+  });
+
+  it('should return error for signup', () => {
+    spyOn(authService, 'signUp').and.returnValue(
+      throwError(() => new Error('test'))
+    );
+    spyOn(authService, 'getTokenData').and.returnValue(
+      throwError(() => new Error('test'))
+    );
+    spyOn(messageService, 'add');
+    spyOn(component, 'toastOutputError').and.callThrough();
+
+    component.onSignUp();
+
+    expect(component.toastOutputError).toHaveBeenCalled();
+    expect(messageService.add).toHaveBeenCalled();
   });
 });
