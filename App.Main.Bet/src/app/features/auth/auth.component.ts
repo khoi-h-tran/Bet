@@ -181,15 +181,14 @@ export class AuthComponent implements OnInit {
   // createNewUser(userCredentials: firebase.auth.UserCredential) {
   createNewUser(userCredentials: any) {
     return new User(
-      userCredentials.user?.displayName
-        ? userCredentials.user?.displayName
-        : '',
-      userCredentials.user?.email ? userCredentials.user?.email : '',
-      userCredentials.user?.uid ? userCredentials.user?.uid : '',
+      userCredentials.user?.displayName ? userCredentials.user.displayName : '',
+      userCredentials.user?.email ? userCredentials.user.email : '',
+      userCredentials.user?.uid ? userCredentials.user.uid : '',
       '',
-      userCredentials.user?.refreshToken
-        ? userCredentials.user?.refreshToken
-        : ''
+      ''
+      // userCredentials.user?.refreshToken
+      //   ? userCredentials.user.refreshToken
+      //   : ''
     );
   }
 

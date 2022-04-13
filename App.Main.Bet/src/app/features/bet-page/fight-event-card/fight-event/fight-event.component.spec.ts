@@ -20,6 +20,8 @@ import { ToastModule } from 'primeng/toast';
 import { AuthGuard } from 'src/app/features/auth/auth.guard';
 import { SignupUserCredTestData } from 'src/app/shared/test-data/SignupUserCredentialsTestData';
 import { selectUserID } from 'src/app/app-state/selectors/user.selectors';
+import { BetService } from '../../bet.service';
+import { of, throwError } from 'rxjs';
 
 describe('FightEventComponent', () => {
   let component: FightEventComponent;
@@ -30,6 +32,25 @@ describe('FightEventComponent', () => {
 
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
   let store: MockStore;
+  let messageService: MessageService;
+
+  let betService: BetService;
+
+  let testBet1: IBet = {
+    userID: '9GnElKRIxogCoyFcms0JmYuM4SS2',
+    eventName: 'UFC 271',
+    cardType: 'Main Card',
+    eventWeightClass: 'Middleweight',
+    selectedFighter: 'Robert Wittaker',
+    eventMatchUp: 'Israel Adesanya_vs_Robert Wittaker',
+  };
+
+  const placeBetReturn = {
+    eventName: 'UFC 271',
+    cardType: 'Main Card',
+    eventWeightClass: 'Middleweight',
+    selectedFighter: 'Robert Wittaker',
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -41,6 +62,7 @@ describe('FightEventComponent', () => {
         ToastModule,
       ],
       providers: [
+        BetService,
         MessageService,
         { provide: HttpClient, useValue: httpClientSpy },
         provideMockStore({
@@ -55,8 +77,10 @@ describe('FightEventComponent', () => {
       declarations: [FightEventComponent],
     }).compileComponents();
 
+    betService = TestBed.inject(BetService);
     httpClientSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
     store = TestBed.inject(MockStore);
+    messageService = TestBed.inject(MessageService);
     spyOn(store, 'dispatch').and.callThrough();
 
     fixture = TestBed.createComponent(FightEventComponent);
@@ -176,16 +200,48 @@ describe('FightEventComponent', () => {
 
   it('should onPlaceBet should create bet objects as expected', () => {
     // Note: In test data, only robert wittaker has a bet placed, so we will only test this bet placement
-    let testBet1: IBet = {
-      userID: '9GnElKRIxogCoyFcms0JmYuM4SS2',
-      eventName: 'UFC 271',
-      cardType: 'Main Card',
-      eventWeightClass: 'Middleweight',
-      selectedFighter: 'Robert Wittaker',
-      eventMatchUp: 'Israel Adesanya_vs_Robert Wittaker',
-    };
     component.onPlaceBet(0);
     expect(component.betPlacement).toEqual(testBet1);
+  });
+
+  it('should callServiceAddBet', () => {
+    spyOn(betService, 'placeBet').and.returnValue(of(placeBetReturn));
+    spyOn(component, 'toastOutputSuccess');
+
+    component.callServiceAddBet(testBet1);
+
+    expect(betService.placeBet).toHaveBeenCalled();
+    expect(component.toastOutputSuccess).toHaveBeenCalled();
+  });
+
+  it('should callServiceAddBet', () => {
+    spyOn(betService, 'placeBet').and.returnValue(
+      throwError(() => {
+        new Error('test');
+      })
+    );
+    spyOn(component, 'toastOutputError');
+
+    component.callServiceAddBet(testBet1);
+
+    expect(betService.placeBet).toHaveBeenCalled();
+    expect(component.toastOutputError).toHaveBeenCalled();
+  });
+
+  it('should add toast error message', () => {
+    spyOn(messageService, 'add');
+
+    component.toastOutputError(0);
+
+    expect(messageService.add).toHaveBeenCalled();
+  });
+
+  it('should add toast success message', () => {
+    spyOn(messageService, 'add');
+
+    component.toastOutputSuccess(0);
+
+    expect(messageService.add).toHaveBeenCalled();
   });
 
   // Can't figure out how to call onPlaceBet through radio button click

@@ -154,6 +154,7 @@ describe('AuthService', () => {
   });
 
   it('should return access token', () => {
+    spyOn(LoginUserCredTestData.user, 'getIdTokenResult').and.callThrough();
     // let signUpResult;
     authService.getTokenData(accessTokenUserCred).subscribe((result) => {
       expect(result).toEqual(accessTokenMock);
@@ -227,4 +228,24 @@ describe('AuthService', () => {
     // check the logout has been called
     expect(logoutSpy).toHaveBeenCalled();
   }));
+
+  it('should return an error when triggered by native event', (done: DoneFn) => {
+    const errorResponse = new HttpErrorResponse({
+      error: new Event('click'),
+      status: 404,
+      statusText: 'Not Found',
+    });
+
+    spyOn(authService, 'logIn').and.returnValue(asyncError(errorResponse));
+
+    authService.logIn('user', 'password').subscribe({
+      next: (accessToken) => done.fail('expected on click event error'),
+      error: (error) => {
+        expect(error.message).toBe(
+          'Http failure response for (unknown url): 404 Not Found'
+        );
+        done();
+      },
+    });
+  });
 });

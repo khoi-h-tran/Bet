@@ -6,6 +6,7 @@ import { IUFCEvents } from 'src/app/shared/models/ufc-events.model';
 import { IAppState, IBetState } from '../app.state';
 import { unAuthUserTestData } from 'src/app/shared/test-data/user-test-data';
 import { User } from 'src/app/shared/models/user.model';
+import { mockEventsWithBets } from 'src/app/shared/test-data/MockEventsWithBets';
 
 describe('Bet Selectors', () => {
   let store: MockStore;
@@ -41,7 +42,7 @@ describe('Bet Selectors', () => {
   });
 
   it('should use projector to verify feature selection', () => {
-    expect(betSelectors.selectUFCEvents.projector(initialState.bet)).toBe(
+    expect(betSelectors.selectUFCEvents.projector(initialState.bet)).toEqual(
       initialState.bet.ufcEvents
     );
   });

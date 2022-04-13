@@ -316,6 +316,63 @@ describe('AuthComponent', () => {
     );
   });
 
+  it('should create from blank User', () => {
+    const EmptyTestUserCred = {
+      operationType: 'signIn',
+      credential: null,
+      additionalUserInfo: {
+        isNewUser: false,
+        providerId: 'password',
+        profile: {},
+      },
+      user: {
+        uid: null,
+        email: null,
+        emailVerified: false,
+        displayName: null,
+        isAnonymous: false,
+        providerData: [
+          {
+            providerId: 'password',
+            uid: null,
+            displayName: null,
+            email: null,
+            phoneNumber: null,
+            photoURL: null,
+          },
+        ],
+        updateProfile(displayName: any) {
+          this.displayName = displayName;
+        },
+      },
+    };
+
+    const testBlankUser: User = new User('', '', '', '', '');
+
+    const blankUser = component.createNewUser(EmptyTestUserCred);
+
+    expect(blankUser).toEqual(testBlankUser);
+  });
+
+  it('should create from null User', () => {
+    const EmptyTestUserCred = {
+      operationType: 'signIn',
+      credential: null,
+      additionalUserInfo: {
+        isNewUser: false,
+        providerId: 'password',
+        profile: {},
+      },
+      user: null,
+    };
+
+    const testNullUser: User = new User('', '', '', '', '');
+
+    const returnedNullUser = component.createNewUser(EmptyTestUserCred);
+
+    expect(returnedNullUser).toEqual(testNullUser);
+  });
+
   it('should add access token to user', () => {
     const testSignupUser: User = new User(
       '',

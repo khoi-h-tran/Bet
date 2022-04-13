@@ -33,7 +33,7 @@ describe('User Selectors', () => {
     store = TestBed.inject(MockStore);
   });
 
-  it('should return a selection of UFC events', () => {
+  it('should return an access token', () => {
     store
       .select(userSelectors.selectAccessToken)
       .subscribe((accessToken) => (accessTokenFromSelector = accessToken));

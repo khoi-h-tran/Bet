@@ -29,7 +29,7 @@ export class AuthService {
     return from(this.auth.createUserWithEmailAndPassword(email, password)).pipe(
       tap((userCrendentials) => {
         this.log('created user.');
-        userCrendentials.user?.updateProfile({ displayName: userName });
+        userCrendentials.user!.updateProfile({ displayName: userName });
       }),
       catchError(this.handleError('signUp'))
     ) as Observable<firebase.auth.UserCredential>;
@@ -40,14 +40,13 @@ export class AuthService {
     return from(this.auth.signInWithEmailAndPassword(email, password)).pipe(
       tap((userCrendentials) => {
         this.log('logged in user.');
-        console.log(userCrendentials);
       }),
       catchError(this.handleError('logIn'))
     ) as Observable<any>;
   }
 
-  getTokenData(userCredentials: firebase.auth.UserCredential): Observable<any> {
-    return from(userCredentials.user?.getIdTokenResult(true)!);
+  getTokenData(userCredentials: any): Observable<any> {
+    return from(userCredentials.user!.getIdTokenResult(true)!);
   }
 
   logOut() {

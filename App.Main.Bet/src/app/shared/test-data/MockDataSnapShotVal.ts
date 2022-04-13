@@ -5,27 +5,6 @@ export const MockDataSnapShot = {
   priority: null,
   key: null,
   size: 0,
-  child: function (path: string): DataSnapshot {
-    throw new Error('Function not implemented.');
-  },
-  exists: function (): boolean {
-    throw new Error('Function not implemented.');
-  },
-  exportVal: function () {
-    throw new Error('Function not implemented.');
-  },
-  forEach: function (action: (child: DataSnapshot) => boolean | void): boolean {
-    throw new Error('Function not implemented.');
-  },
-  hasChild: function (path: string): boolean {
-    throw new Error('Function not implemented.');
-  },
-  hasChildren: function (): boolean {
-    throw new Error('Function not implemented.');
-  },
-  toJSON: function (): object | null {
-    throw new Error('Function not implemented.');
-  },
   val: function () {
     return MockDataSnapShotVal;
   },
