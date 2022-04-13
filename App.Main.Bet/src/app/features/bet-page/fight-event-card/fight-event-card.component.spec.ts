@@ -1,12 +1,16 @@
+import { HttpClient } from '@angular/common/http';
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { CardModule } from 'primeng/card';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabView, TabViewModule } from 'primeng/tabview';
+import { ToastModule } from 'primeng/toast';
 import { ufcTestDataTS } from 'src/app/shared/test-data/UFCEventsTestData';
 
 import { FightEventCardComponent } from './fight-event-card.component';
@@ -22,6 +26,9 @@ describe('FightEventCardComponent', () => {
   let ufc271Cards = ufcTestDataTS[0].eventCards;
   let ufc272Cards = ufcTestDataTS[1].eventCards;
 
+  let httpClientSpy: jasmine.SpyObj<HttpClient>;
+  let store: MockStore;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -31,9 +38,21 @@ describe('FightEventCardComponent', () => {
         RadioButtonModule,
         TabMenuModule,
         TabViewModule,
+        ToastModule,
+      ],
+      providers: [
+        MessageService,
+        { provide: HttpClient, useValue: httpClientSpy },
+        provideMockStore({
+          selectors: [],
+        }),
       ],
       declarations: [FightEventCardComponent, FightEventComponent],
     }).compileComponents();
+
+    httpClientSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
+    store = TestBed.inject(MockStore);
+    spyOn(store, 'dispatch').and.callThrough();
 
     fixtureUFC271 = TestBed.createComponent(FightEventCardComponent);
     componentUFC271 = fixtureUFC271.componentInstance;

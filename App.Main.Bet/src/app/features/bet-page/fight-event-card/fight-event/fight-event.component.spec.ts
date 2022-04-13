@@ -13,6 +13,13 @@ import { IBet } from 'src/app/shared/models/bet.model';
 import { ufcTestDataTS } from 'src/app/shared/test-data/UFCEventsTestData';
 
 import { FightEventComponent } from './fight-event.component';
+import { HttpClient } from '@angular/common/http';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { AuthGuard } from 'src/app/features/auth/auth.guard';
+import { SignupUserCredTestData } from 'src/app/shared/test-data/SignupUserCredentialsTestData';
+import { selectUserID } from 'src/app/app-state/selectors/user.selectors';
 
 describe('FightEventComponent', () => {
   let component: FightEventComponent;
@@ -21,11 +28,36 @@ describe('FightEventComponent', () => {
   let ufc271TestEvents: IEvent[] = ufcTestDataTS[0].eventCards[0].cardEvents;
   let ufc271TestCard: ICard = ufcTestDataTS[0].eventCards[0];
 
+  let httpClientSpy: jasmine.SpyObj<HttpClient>;
+  let store: MockStore;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [AvatarModule, CardModule, FormsModule, RadioButtonModule],
+      imports: [
+        AvatarModule,
+        CardModule,
+        FormsModule,
+        RadioButtonModule,
+        ToastModule,
+      ],
+      providers: [
+        MessageService,
+        { provide: HttpClient, useValue: httpClientSpy },
+        provideMockStore({
+          selectors: [
+            {
+              selector: selectUserID,
+              value: SignupUserCredTestData.user.uid,
+            },
+          ],
+        }),
+      ],
       declarations: [FightEventComponent],
     }).compileComponents();
+
+    httpClientSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
+    store = TestBed.inject(MockStore);
+    spyOn(store, 'dispatch').and.callThrough();
 
     fixture = TestBed.createComponent(FightEventComponent);
     component = fixture.componentInstance;
@@ -145,12 +177,12 @@ describe('FightEventComponent', () => {
   it('should onPlaceBet should create bet objects as expected', () => {
     // Note: In test data, only robert wittaker has a bet placed, so we will only test this bet placement
     let testBet1: IBet = {
-      userID: 'tempId123',
+      userID: '9GnElKRIxogCoyFcms0JmYuM4SS2',
       eventName: 'UFC 271',
       cardType: 'Main Card',
       eventWeightClass: 'Middleweight',
       selectedFighter: 'Robert Wittaker',
-      eventMatchUp: 'Fighter 1_vs_Fighter 2',
+      eventMatchUp: 'Israel Adesanya_vs_Robert Wittaker',
     };
     component.onPlaceBet(0);
     expect(component.betPlacement).toEqual(testBet1);

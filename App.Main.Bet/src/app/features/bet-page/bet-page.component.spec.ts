@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -20,22 +20,23 @@ import { CardModule } from 'primeng/card';
 import { AvatarModule } from 'primeng/avatar';
 import { FormsModule } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { selectUserID } from 'src/app/app-state/selectors/user.selectors';
+import { LoginUserCredTestData } from 'src/app/shared/test-data/LoginUserCredentialsTestData';
+import { MockDataSnapShot } from 'src/app/shared/test-data/MockDataSnapShotVal';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { mockEventsWithBets } from 'src/app/shared/test-data/MockEventsWithBets';
 
 describe('BetPageComponent', () => {
   let component: BetPageComponent;
   let fixture: ComponentFixture<BetPageComponent>;
   let store: MockStore;
   let getUFCEventsSpy: jasmine.Spy;
+  let betService: BetService;
+  let httpClientSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(async () => {
-    // Create a fake BetService object with a `getUFCEvents()` spy
-    const betService = jasmine.createSpyObj('BetService', ['getUFCEvents']);
-
-    // Make the spy return a synchronous Observable with the test data
-    getUFCEventsSpy = betService.getUFCEvents.and.returnValue(
-      of(ufcTestDataTS)
-    );
-
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
     await TestBed.configureTestingModule({
       declarations: [
         Accordion,
@@ -53,25 +54,37 @@ describe('BetPageComponent', () => {
         RadioButtonModule,
         TabMenuModule,
         TabViewModule,
+        ToastModule,
       ],
       providers: [
+        BetService,
+        MessageService,
+        { provide: HttpClient, useValue: httpClientSpy },
         provideMockStore({
           selectors: [
             {
               selector: selectUFCEvents,
-              value: ufcTestDataTS,
+              value: mockEventsWithBets,
+            },
+            {
+              selector: selectUserID,
+              value: LoginUserCredTestData.user.uid,
             },
           ],
         }),
-        { provide: BetService, useValue: betService },
       ],
     }).compileComponents();
 
+    httpClientSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
+
+    betService = TestBed.inject(BetService);
     store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(BetPageComponent);
     component = fixture.componentInstance;
 
     spyOn(store, 'dispatch').and.callThrough();
+    spyOn(betService, 'getUsersBets').and.returnValue(of(MockDataSnapShot));
+    spyOn(betService, 'getUFCEvents').and.returnValue(of(ufcTestDataTS));
 
     fixture.detectChanges();
   });
@@ -80,18 +93,14 @@ describe('BetPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have retrieve event with bet service, action, and selector called', () => {
-    expect(getUFCEventsSpy.calls.any())
-      .withContext('getUFCEvents called')
-      .toBe(true);
-
+  it('should add ufc events to state', () => {
     expect(store.dispatch).toHaveBeenCalledWith(
-      retrievedUFCEvents({ retrievedUFCEventsData: ufcTestDataTS })
+      retrievedUFCEvents({ retrievedUFCEventsData: mockEventsWithBets })
     );
   });
 
   it('should create bet page component with instantiated test data', () => {
-    expect(component.ufcEvents).toEqual(ufcTestDataTS);
+    expect(component.ufcEvents).toEqual(mockEventsWithBets);
   });
 
   it('should create accordian', () => {

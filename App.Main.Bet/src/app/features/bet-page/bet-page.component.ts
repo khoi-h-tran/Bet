@@ -71,7 +71,7 @@ export class BetPageComponent implements OnInit {
           userID = stateUserID;
         }),
         // get all the user's bets asynchronously
-        exhaustMap((): Observable<DataSnapshot> => {
+        exhaustMap((): Observable<any> => {
           return this.betService.getUsersBets(userID);
         }),
         // get the snapshots returned from the previous exhaust map

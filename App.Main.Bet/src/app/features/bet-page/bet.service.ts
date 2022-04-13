@@ -37,14 +37,14 @@ export class BetService {
 
   constructor(private http: HttpClient, private store: Store) {}
 
-  getUFCEvents(): Observable<Array<IUFCEvents>> {
+  getUFCEvents(): Observable<any> {
     return this.http.get<IUFCEvents[]>(environment.urlTestJSONData).pipe(
       tap((ufcEvents) => this.log('fetched ufc events')),
       catchError(this.handleError('getUFCEvents'))
     ) as Observable<Array<IUFCEvents>>;
   }
 
-  getUsersBets(userId: string): Observable<DataSnapshot> {
+  getUsersBets(userId: string): Observable<any> {
     const dbRef = ref(getDatabase());
     return from(get(child(dbRef, `bets/${userId}`)));
   }
