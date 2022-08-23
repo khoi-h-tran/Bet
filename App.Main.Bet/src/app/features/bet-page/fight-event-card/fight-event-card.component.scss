@@ -12,6 +12,11 @@ $borderColor: #242424;
   background-color: $accordionTabViewPanelBackgroundColor;
 }
 
+::ng-deep .p-scrollpanel {
+  width: 100% !important; 
+  height: 600px !important;
+}
+
 ::ng-deep .p-accordion .p-accordion-content {
   background-color: $accordionContentBackgroundColor;
 }

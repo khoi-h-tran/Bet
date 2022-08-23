@@ -4,11 +4,13 @@
     *ngFor="let ufcEventCard of ufcEventCards; let i = index"
     header="{{ ufcEventCard.cardType }} - {{ ufcEventCard.eventTime }}"
   >
-    <app-fight-event
-      [ufcFightEvents]="ufcEventCard.cardEvents"
-      [eventTime]="ufcEventCard.eventTime"
-      [eventName]="eventName"
-      [cardType]="ufcEventCard.cardType"
-    ></app-fight-event>
+    <p-scrollPanel>
+      <app-fight-event
+        [ufcFightEvents]="ufcEventCard.cardEvents"
+        [eventTime]="ufcEventCard.eventTime"
+        [eventName]="eventName"
+        [cardType]="ufcEventCard.cardType"
+      ></app-fight-event>
+    </p-scrollPanel>
   </p-tabPanel>
 </p-tabView>
