@@ -75,7 +75,7 @@ export class BetPageComponent implements OnInit {
           return this.betService.getUsersBets(userID);
         }),
         // get the snapshots returned from the previous exhaust map
-        exhaustMap((dataSnapShotReturned): Observable<Array<IUFCEvents>> => {
+        exhaustMap((dataSnapShotReturned): Observable<any> => {
           // store it
           dataSnapShot = dataSnapShotReturned;
           // then run another async call to get all the ufc events
@@ -84,8 +84,8 @@ export class BetPageComponent implements OnInit {
         // Now tap the return ufc events from the previous exhaustMap
         // Run through logic to apply the bets to the ufc events
         tap((ufcEvents) => {
-          // store the ufc events
-          retrievedUFCEvents = ufcEvents;
+          // Extract values fromt he data snapshop and store the ufc events
+          retrievedUFCEvents = ufcEvents.val();
           // get the value from the firebase query for bets corresponding to the correct userID
           let betsDocument = dataSnapShot.val();
           // map over the UFC Events (we have to map and create a new array, otherwise it is read-only and copied by reference, so we can't change selectedFighter property)

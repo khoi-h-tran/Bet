@@ -38,10 +38,12 @@ export class BetService {
   constructor(private http: HttpClient, private store: Store) {}
 
   getUFCEvents(): Observable<any> {
-    return this.http.get<IUFCEvents[]>(environment.urlTestJSONData).pipe(
-      tap((ufcEvents) => this.log('fetched ufc events')),
-      catchError(this.handleError('getUFCEvents'))
-    ) as Observable<Array<IUFCEvents>>;
+    // return this.http.get<IUFCEvents[]>(environment.urlTestJSONData).pipe(
+    //   tap((ufcEvents) => this.log('fetched ufc events')),
+    //   catchError(this.handleError('getUFCEvents'))
+    // ) as Observable<Array<IUFCEvents>>;
+    const dbRef = ref(getDatabase());
+    return from(get(child(dbRef, `UFCEvents`)));
   }
 
   getUsersBets(userId: string): Observable<any> {
