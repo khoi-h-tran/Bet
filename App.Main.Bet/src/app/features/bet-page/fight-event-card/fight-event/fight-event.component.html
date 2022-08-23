@@ -1,23 +1,50 @@
-<p-card *ngFor="let ufcFightEvent of ufcFightEvents; let i = index" header="{{ufcFightEvent.eventWeightClass}}">       
-        <ng-template pTemplate="header"></ng-template>
-        <p-avatar class="fighter1Img" image={{ufcFightEvent.eventFighter1.fighterImage}} styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
-        <p class="fighter1Name">{{ufcFightEvent.eventFighter1.fighterName}}</p>
-        <p class="fighter1Record">{{ufcFightEvent.eventFighter1.fighterRecord}}</p>
-        <p-radioButton 
-        class="fighter1RadioButton"
-        name="{{ufcFightEvent.eventFighter1.fighterName}}vs{{ufcFightEvent.eventFighter2.fighterName}}" 
-        value="{{ufcFightEvent.eventFighter1.fighterName}}" 
-        [(ngModel)]="selectedFighter[i]"
-        (onClick)="onPlaceBet(i)">
-        </p-radioButton>
-        <p-toast key="{{ufcFightEvent.eventFighter1.fighterName}}_vs_{{ufcFightEvent.eventFighter2.fighterName}}" class="betStatusMessage" position="top-center"></p-toast>
-        <p-radioButton 
-        class="fighter2RadioButton"
-        name="{{ufcFightEvent.eventFighter1.fighterName}}vs{{ufcFightEvent.eventFighter2.fighterName}}" 
-        value="{{ufcFightEvent.eventFighter2.fighterName}}" 
-        [(ngModel)]="selectedFighter[i]"
-        (onClick)="onPlaceBet(i)"></p-radioButton>
-        <p-avatar class="fighter2Img" image={{ufcFightEvent.eventFighter2.fighterImage}} styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
-        <p class="fighter2Name">{{ufcFightEvent.eventFighter2.fighterName}}</p>
-        <p class="fighter2Record">{{ufcFightEvent.eventFighter2.fighterRecord}}</p>
+<p-card
+  *ngFor="let ufcFightEvent of ufcFightEvents; let i = index"
+  header="{{ ufcFightEvent.eventWeightClass }}"
+>
+  <ng-template pTemplate="header"></ng-template>
+  <p-avatar
+    class="fighter1Img"
+    image="{{ ufcFightEvent.eventFighter1.fighterImage }}"
+    styleClass="mr-2"
+    size="xlarge"
+    shape="circle"
+  ></p-avatar>
+  <p class="fighter1Name">{{ ufcFightEvent.eventFighter1.fighterName }}</p>
+  <p class="fighter1Record">{{ ufcFightEvent.eventFighter1.fighterRecord }}</p>
+  <p-radioButton
+    class="fighter1RadioButton"
+    name="{{ ufcFightEvent.eventFighter1.fighterName }}vs{{
+      ufcFightEvent.eventFighter2.fighterName
+    }}"
+    value="{{ ufcFightEvent.eventFighter1.fighterName }}"
+    [(ngModel)]="selectedFighter[i]"
+    (onClick)="onPlaceBet(i)"
+  >
+  </p-radioButton>
+  <p-toast
+    key="{{ ufcFightEvent.eventFighter1.fighterName }}_vs_{{
+      ufcFightEvent.eventFighter2.fighterName
+    }}"
+    class="betStatusMessage"
+    position="top-center"
+  ></p-toast>
+  <p-radioButton
+    class="fighter2RadioButton"
+    name="{{ ufcFightEvent.eventFighter1.fighterName }}vs{{
+      ufcFightEvent.eventFighter2.fighterName
+    }}"
+    value="{{ ufcFightEvent.eventFighter2.fighterName }}"
+    [(ngModel)]="selectedFighter[i]"
+    (onClick)="onPlaceBet(i)"
+  ></p-radioButton>
+  <p-avatar
+    class="fighter2Img"
+    image="{{ ufcFightEvent.eventFighter2.fighterImage }}"
+    styleClass="mr-2"
+    size="xlarge"
+    shape="circle"
+  ></p-avatar>
+  <p class="fighter2Name">{{ ufcFightEvent.eventFighter2.fighterName }}</p>
+  <p class="fighter2Record">{{ ufcFightEvent.eventFighter2.fighterRecord }}</p>
 </p-card>
