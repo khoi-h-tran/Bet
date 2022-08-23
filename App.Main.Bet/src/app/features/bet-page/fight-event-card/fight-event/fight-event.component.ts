@@ -27,6 +27,11 @@ export class FightEventComponent implements OnInit {
   // An array of the selected fighters for each specific fight event
   // Index matches the UfcFightEvent's index
   selectedFighter: string[] = new Array<string>(this.ufcFightEvents.length);
+  // Keeps track of which fighters were previously selected
+  // Required to be able to deselect radio buttons
+  previousSelectedFighter: string[] = new Array<string>(
+    this.ufcFightEvents.length
+  );
   // An array of the fight event identity (in the form of <fighter1name>vs<fighter2name>) to identify radio button groups and toast message keys
   // Index matches the UfcFightEvent's index
   fightEventIDs: string[] = new Array<string>(this.ufcFightEvents.length);
@@ -40,16 +45,13 @@ export class FightEventComponent implements OnInit {
   ngOnInit(): void {
     this.ufcFightEvents.forEach((fightEvent, index) => {
       this.selectedFighter[index] = fightEvent.selectedFighter;
+      this.previousSelectedFighter[index] = fightEvent.selectedFighter;
       this.fightEventIDs[index] = `${this.removeSpaces(
         fightEvent.eventFighter1.fighterName
       )}_vs_${this.removeSpaces(fightEvent.eventFighter2.fighterName)}`;
     });
   }
 
-  // key: string = '';
-  // betPlacement: IBetPlacement = {
-  //   selectedFighter: '',
-  // };
   userID: string = '';
   betPlacement: IBet = {
     userID: '',
@@ -62,9 +64,9 @@ export class FightEventComponent implements OnInit {
   betEventIndex: number = 0;
 
   // TODO: Unit test this
-  onPlaceBet(seletedEventIndex: number) {
+  onPlaceBet(selectedEventIndex: number) {
     // Store the data we need into local variables
-    this.betEventIndex = seletedEventIndex;
+    this.betEventIndex = selectedEventIndex;
     this.store
       .select(selectUserID)
       .pipe(
@@ -74,30 +76,24 @@ export class FightEventComponent implements OnInit {
         })
       )
       .subscribe({
-        // next: () => {
-        //   // build the database key
-        //   this.key = `${userID}_${eventName}_${cardType}_${eventWeightClass}`;
-
-        //   this.betPlacement.selectedFighter = selectedFighter;
-
-        //   this.callServiceAddBet(
-        //     seletedEventIndex,
-        //     this.key,
-        //     this.betPlacement
-        //   );
-        // },
         next: () => {
           this.betPlacement.userID = this.userID;
           this.betPlacement.eventName = this.removeSpaces(this.eventName);
           this.betPlacement.cardType = this.removeSpaces(this.cardType);
           this.betPlacement.eventWeightClass =
-            this.ufcFightEvents[seletedEventIndex].eventWeightClass;
+            this.ufcFightEvents[selectedEventIndex].eventWeightClass;
           this.betPlacement.eventMatchUp =
-            this.fightEventIDs[seletedEventIndex];
+            this.fightEventIDs[selectedEventIndex];
           this.betPlacement.selectedFighter =
-            this.selectedFighter[seletedEventIndex];
+            this.selectedFighter[selectedEventIndex];
 
-          this.callServiceAddBet(this.betPlacement);
+          console.log(this.previousSelectedFighter);
+          console.log(this.selectedFighter);
+
+          this.selectedFighter[selectedEventIndex] !==
+          this.previousSelectedFighter[selectedEventIndex]
+            ? this.callServiceAddBet(this.betPlacement, selectedEventIndex)
+            : this.callServiceRemoveBet(this.betPlacement, selectedEventIndex);
         },
         error: () => {},
       });
@@ -108,33 +104,33 @@ export class FightEventComponent implements OnInit {
     return inputString.replace(/\s/g, ' ');
   }
 
-  // callServiceAddBet(
-  //   seletedEventIndex: number,
-  //   key: string,
-  //   betPlacement: IBetPlacement
-  // ) {
-  //   this.betService.addBet(key, betPlacement).subscribe(
-  //     (response) => {
-  //       this.toastOutputSuccess(seletedEventIndex);
-  //     },
-  //     (error) => {
-  //       this.toastOutputError(seletedEventIndex);
-  //     }
-  //   );
-  // }
-
-  callServiceAddBet(betPlacement: IBet) {
+  callServiceAddBet(betPlacement: IBet, selectedEventIndex: number) {
     this.betService.placeBet(betPlacement).subscribe({
       next: (response) => {
-        this.toastOutputSuccess(this.betEventIndex);
+        this.toastBetPlacementSuccess(this.betEventIndex);
+        this.previousSelectedFighter[selectedEventIndex] =
+          this.selectedFighter[selectedEventIndex];
       },
       error: (error) => {
-        this.toastOutputError(this.betEventIndex);
+        this.toastBetPlacementError(this.betEventIndex);
       },
     });
   }
 
-  toastOutputSuccess(seletedEventIndex: number) {
+  callServiceRemoveBet(betPlacement: IBet, selectedEventIndex: number) {
+    this.betService.removeBet(betPlacement).subscribe({
+      next: (response) => {
+        this.toastBetRemovalSuccess(this.betEventIndex);
+        this.selectedFighter[selectedEventIndex] = '';
+        this.previousSelectedFighter[selectedEventIndex] = '';
+      },
+      error: (error) => {
+        this.toastBetRemovalError(this.betEventIndex);
+      },
+    });
+  }
+
+  toastBetPlacementSuccess(seletedEventIndex: number) {
     this.messageService.add({
       key: this.fightEventIDs[seletedEventIndex],
       severity: 'success',
@@ -143,7 +139,25 @@ export class FightEventComponent implements OnInit {
     });
   }
 
-  toastOutputError(seletedEventIndex: number) {
+  toastBetPlacementError(seletedEventIndex: number) {
+    this.messageService.add({
+      key: this.fightEventIDs[seletedEventIndex],
+      severity: 'error',
+      summary: 'Error:',
+      detail: `Please contact admin.`,
+    });
+  }
+
+  toastBetRemovalSuccess(seletedEventIndex: number) {
+    this.messageService.add({
+      key: this.fightEventIDs[seletedEventIndex],
+      severity: 'success',
+      summary: 'Bet Removed on:',
+      detail: `${this.previousSelectedFighter[seletedEventIndex]}`,
+    });
+  }
+
+  toastBetRemovalError(seletedEventIndex: number) {
     this.messageService.add({
       key: this.fightEventIDs[seletedEventIndex],
       severity: 'error',

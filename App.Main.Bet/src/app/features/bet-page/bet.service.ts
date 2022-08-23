@@ -65,6 +65,15 @@ export class BetService {
     );
   }
 
+  // TODO: UNIT TEST THIS
+  removeBet(betPlacement: IBet): Observable<any> {
+    const db = getDatabase();
+    let documentKey: string = `${betPlacement.eventName}_${betPlacement.cardType}_${betPlacement.eventWeightClass}_${betPlacement.eventMatchUp}`;
+    return from(
+      set(ref(db, `bets/${betPlacement.userID}/${documentKey}`), null)
+    );
+  }
+
   /**
    * Returns a function that handles Http operation failures.
    * This error handler lets the app continue to run as if no error occurred.
