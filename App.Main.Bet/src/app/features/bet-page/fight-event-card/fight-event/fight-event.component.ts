@@ -13,6 +13,11 @@ import { Store } from '@ngrx/store';
 import { selectUserID } from 'src/app/app-state/selectors/user.selectors';
 import { take, tap } from 'rxjs';
 
+enum BetPlacementType {
+  BetPlacement,
+  BetRemoval,
+}
+
 @Component({
   selector: 'app-fight-event',
   templateUrl: './fight-event.component.html',
@@ -107,12 +112,12 @@ export class FightEventComponent implements OnInit {
   callServiceAddBet(betPlacement: IBet, selectedEventIndex: number) {
     this.betService.placeBet(betPlacement).subscribe({
       next: (response) => {
-        this.toastBetPlacementSuccess(this.betEventIndex);
+        this.toastSuccess(this.betEventIndex, BetPlacementType.BetPlacement);
         this.previousSelectedFighter[selectedEventIndex] =
           this.selectedFighter[selectedEventIndex];
       },
       error: (error) => {
-        this.toastBetPlacementError(this.betEventIndex);
+        this.toastError(this.betEventIndex);
       },
     });
   }
@@ -120,44 +125,30 @@ export class FightEventComponent implements OnInit {
   callServiceRemoveBet(betPlacement: IBet, selectedEventIndex: number) {
     this.betService.removeBet(betPlacement).subscribe({
       next: (response) => {
-        this.toastBetRemovalSuccess(this.betEventIndex);
+        this.toastSuccess(this.betEventIndex, BetPlacementType.BetRemoval);
         this.selectedFighter[selectedEventIndex] = '';
         this.previousSelectedFighter[selectedEventIndex] = '';
       },
       error: (error) => {
-        this.toastBetRemovalError(this.betEventIndex);
+        this.toastError(this.betEventIndex);
       },
     });
   }
 
-  toastBetPlacementSuccess(seletedEventIndex: number) {
+  toastSuccess(seletedEventIndex: number, betplacementType: BetPlacementType) {
     this.messageService.add({
       key: this.fightEventIDs[seletedEventIndex],
       severity: 'success',
-      summary: 'Bet Placed on:',
+      summary: `Bet ${
+        betplacementType === BetPlacementType.BetPlacement
+          ? 'placed'
+          : 'removed'
+      } on:`,
       detail: `${this.selectedFighter[seletedEventIndex]}`,
     });
   }
 
-  toastBetPlacementError(seletedEventIndex: number) {
-    this.messageService.add({
-      key: this.fightEventIDs[seletedEventIndex],
-      severity: 'error',
-      summary: 'Error:',
-      detail: `Please contact admin.`,
-    });
-  }
-
-  toastBetRemovalSuccess(seletedEventIndex: number) {
-    this.messageService.add({
-      key: this.fightEventIDs[seletedEventIndex],
-      severity: 'success',
-      summary: 'Bet Removed on:',
-      detail: `${this.previousSelectedFighter[seletedEventIndex]}`,
-    });
-  }
-
-  toastBetRemovalError(seletedEventIndex: number) {
+  toastError(seletedEventIndex: number) {
     this.messageService.add({
       key: this.fightEventIDs[seletedEventIndex],
       severity: 'error',
