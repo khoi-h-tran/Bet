@@ -1,1 +1,31 @@
-<p>statistics-page works!</p>
+<span> Note: This is just a visual demo (no real data) </span>
+<p-table
+  #betStatisticsTable
+  [value]="betResults"
+  responsiveLayout="scroll"
+  [globalFilterFields]="['username']"
+>
+  <ng-template pTemplate="caption">
+    <div class="table-header">Bet Statistics</div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="username">
+        Username <p-sortIcon field="username"></p-sortIcon>
+      </th>
+      <th pSortableColumn="accuracy">
+        Guess Accuracy <p-sortIcon field="accuracy"></p-sortIcon>
+      </th>
+      <th pSortableColumn="countCorrectBets">
+        Correct Guesses <p-sortIcon field="countCorrectBets"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-betResult>
+    <tr>
+      <td>{{ betResult.username }}</td>
+      <td>{{ betResult.accuracy }}</td>
+      <td>{{ betResult.countCorrectBets }}</td>
+    </tr>
+  </ng-template>
+</p-table>

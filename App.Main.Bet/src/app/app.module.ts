@@ -27,6 +27,7 @@ import { PasswordModule } from 'primeng/password';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ToastModule } from 'primeng/toast';
@@ -85,6 +86,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
     // The root state - creates empty {} state
     StoreModule.forRoot({}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    TableModule,
     TabMenuModule,
     TabViewModule,
     ToastModule,

@@ -1,4 +1,5 @@
-$backgroundColor: white;
+$backgroundColor: #242424;
+$borderColor: #faf9f6;
 
 :host {
   display: grid;
@@ -8,3 +9,27 @@ $backgroundColor: white;
   width: 100%; // 100% viewport width
   background-color: $backgroundColor;
 }
+
+p-table {
+  grid-column: 3 / 11;
+  grid-row: 2 / 10;
+}
+
+span {
+  grid-column: 3 / 11;
+  grid-row: 1;
+  align-self: flex-end;
+  justify-self: flex-end;
+  font-size: 1rem;
+}
+
+::ng-deep .p-datatable {
+  border: 1px solid $borderColor !important;
+}
+
+::ng-deep .p-datatable-header {
+  border: 1px solid $borderColor !important;
+  text-align: center;
+  font-size: 2rem;
+}
+
