@@ -385,6 +385,7 @@ describe('AuthComponent', () => {
       ''
     );
 
+    SignupUserCredTestData.user.displayName = '';
     expect(component.createNewUser(SignupUserCredTestData)).toEqual(
       testSignupUser
     );
