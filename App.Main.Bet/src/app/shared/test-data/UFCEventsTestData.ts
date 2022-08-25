@@ -28,7 +28,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
           },
           {
             eventWeightClass: 'Heavyweight',
-            selectedFighter: '',
+            selectedFighter: 'Derrick Lewis',
             eventFighter1: {
               fighterName: 'Derrick Lewis',
               fighterRecord: '26-8-0',
@@ -50,7 +50,7 @@ export const ufcTestDataTS: ReadonlyArray<IUFCEvents> = [
         cardEvents: [
           {
             eventWeightClass: 'Heavyweight',
-            selectedFighter: '',
+            selectedFighter: 'Jared Vandera',
             eventFighter1: {
               fighterName: 'Andrei Arlovski',
               fighterRecord: '32-20-0',

@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { CardModule } from 'primeng/card';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabView, TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
@@ -36,6 +37,7 @@ describe('FightEventCardComponent', () => {
         CardModule,
         FormsModule,
         RadioButtonModule,
+        ScrollPanelModule,
         TabMenuModule,
         TabViewModule,
         ToastModule,
@@ -84,10 +86,8 @@ describe('FightEventCardComponent', () => {
       let cardTabView = cardTabElement.querySelectorAll('.p-tabview-nav li a');
 
       for (let i = 0; i < cardTabView.length; i++) {
-        let hour = new Date(ufc271Cards[i].eventTime).getHours();
-        let hourType = hour >= 12 ? 'PM' : 'AM';
         expect(cardTabView[i].textContent).toEqual(
-          `${ufc271Cards[i].cardType} - ${hour - 12}${hourType}`
+          `${ufc271Cards[i].cardType} - ${ufc271Cards[i].eventTime}`
         );
       }
     });
@@ -99,11 +99,8 @@ describe('FightEventCardComponent', () => {
         '.p-tabview-nav li.p-highlight'
       );
 
-      let hour = new Date(ufc271Cards[0].eventTime).getHours();
-      let hourType = hour >= 12 ? 'PM' : 'AM';
-
       expect(cardTab?.textContent).toEqual(
-        `${ufc271Cards[0].cardType} - ${hour - 12}${hourType}`
+        `${ufc271Cards[0].cardType} - ${ufc271Cards[0].eventTime}`
       );
     });
   });
@@ -126,10 +123,8 @@ describe('FightEventCardComponent', () => {
       let cardTabView = cardTabElement.querySelectorAll('.p-tabview-nav li a');
 
       for (let i = 0; i < cardTabView.length; i++) {
-        let hour = new Date(ufc272Cards[i].eventTime).getHours();
-        let hourType = hour >= 12 ? 'PM' : 'AM';
         expect(cardTabView[i].textContent).toEqual(
-          `${ufc272Cards[i].cardType} - ${hour - 12}${hourType}`
+          `${ufc272Cards[i].cardType} - ${ufc272Cards[i].eventTime}`
         );
       }
     });
@@ -141,11 +136,8 @@ describe('FightEventCardComponent', () => {
         '.p-tabview-nav li.p-highlight'
       );
 
-      let hour = new Date(ufc272Cards[0].eventTime).getHours();
-      let hourType = hour >= 12 ? 'PM' : 'AM';
-
       expect(cardTab?.textContent).toEqual(
-        `${ufc272Cards[0].cardType} - ${hour - 12}${hourType}`
+        `${ufc272Cards[0].cardType} - ${ufc272Cards[0].eventTime}`
       );
     });
   });

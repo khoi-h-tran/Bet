@@ -19,6 +19,5 @@ export class StatisticsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.betResults = BetPlacementTestData.betResults;
-    console.log(BetPlacementTestData.betResults);
   }
 }

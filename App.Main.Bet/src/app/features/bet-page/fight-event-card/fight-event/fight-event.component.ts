@@ -13,10 +13,7 @@ import { Store } from '@ngrx/store';
 import { selectUserID } from 'src/app/app-state/selectors/user.selectors';
 import { take, tap } from 'rxjs';
 
-enum BetPlacementType {
-  BetPlacement,
-  BetRemoval,
-}
+import { BetPlacementType } from './fight-event.enum';
 
 @Component({
   selector: 'app-fight-event',
@@ -91,9 +88,6 @@ export class FightEventComponent implements OnInit {
             this.fightEventIDs[selectedEventIndex];
           this.betPlacement.selectedFighter =
             this.selectedFighter[selectedEventIndex];
-
-          console.log(this.previousSelectedFighter);
-          console.log(this.selectedFighter);
 
           this.selectedFighter[selectedEventIndex] !==
           this.previousSelectedFighter[selectedEventIndex]

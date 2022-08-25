@@ -33,12 +33,12 @@ describe('User Selectors', () => {
     store = TestBed.inject(MockStore);
   });
 
-  it('should return an access token', () => {
-    store
-      .select(userSelectors.selectAccessToken)
-      .subscribe((accessToken) => (accessTokenFromSelector = accessToken));
-    expect(accessTokenFromSelector).toEqual(unAuthUserTestData.accessToken);
-  });
+  // it('should return an access token', () => {
+  //   store
+  //     .select(userSelectors.selectAccessToken)
+  //     .subscribe((accessToken) => (accessTokenFromSelector = accessToken));
+  //   expect(accessTokenFromSelector).toEqual(unAuthUserTestData.accessToken);
+  // });
 
   it('should use projector to verify feature selection', () => {
     expect(userSelectors.selectAccessToken.projector(initialState.user)).toBe(

@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { TableModule } from 'primeng/table';
+
 import { StatisticsPageComponent } from './statistics-page.component';
 
 describe('StatisticsPageComponent', () => {
@@ -8,9 +11,10 @@ describe('StatisticsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StatisticsPageComponent ]
-    })
-    .compileComponents();
+      declarations: [StatisticsPageComponent],
+      imports: [ScrollPanelModule, TableModule],
+      providers: [],
+    }).compileComponents();
   });
 
   beforeEach(() => {

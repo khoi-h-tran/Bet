@@ -290,7 +290,7 @@ describe('AuthComponent', () => {
     expect(component.login).toBeFalse();
   }));
 
-  it('should create new user', () => {
+  it('should sign up user', () => {
     const testSignupUser: User = new User(
       '',
       'khoi.huynh.tran@gmail.com',
@@ -299,16 +299,19 @@ describe('AuthComponent', () => {
       ''
     );
 
+    SignupUserCredTestData.user.displayName = '';
+    expect(component.createNewUser(SignupUserCredTestData)).toEqual(
+      testSignupUser
+    );
+  });
+
+  it('should login user', () => {
     const testLoginUser: User = new User(
       'Khoi',
       'khoi.huynh.tran@gmail.com',
       '9GnElKRIxogCoyFcms0JmYuM4SS2',
       '',
       ''
-    );
-
-    expect(component.createNewUser(SignupUserCredTestData)).toEqual(
-      testSignupUser
     );
 
     expect(component.createNewUser(LoginUserCredTestData)).toEqual(

@@ -23,6 +23,8 @@ import { selectUserID } from 'src/app/app-state/selectors/user.selectors';
 import { BetService } from '../../bet.service';
 import { of, throwError } from 'rxjs';
 
+import { BetPlacementType } from './fight-event.enum';
+
 describe('FightEventComponent', () => {
   let component: FightEventComponent;
   let fixture: ComponentFixture<FightEventComponent>;
@@ -100,7 +102,10 @@ describe('FightEventComponent', () => {
 
   it('should be initialized with correct data', () => {
     expect(component.selectedFighter.length).toEqual(2);
-    expect(component.selectedFighter).toEqual(['Robert Wittaker', '']);
+    expect(component.selectedFighter).toEqual([
+      'Robert Wittaker',
+      'Derrick Lewis',
+    ]);
   });
 
   it(`should populate the ${ufc271TestEvents.length} cards`, () => {
@@ -206,12 +211,12 @@ describe('FightEventComponent', () => {
 
   it('should callServiceAddBet', () => {
     spyOn(betService, 'placeBet').and.returnValue(of(placeBetReturn));
-    spyOn(component, 'toastOutputSuccess');
+    spyOn(component, 'toastSuccess');
 
-    component.callServiceAddBet(testBet1);
+    component.callServiceAddBet(testBet1, 1);
 
     expect(betService.placeBet).toHaveBeenCalled();
-    expect(component.toastOutputSuccess).toHaveBeenCalled();
+    expect(component.toastSuccess).toHaveBeenCalled();
   });
 
   it('should callServiceAddBet', () => {
@@ -220,18 +225,18 @@ describe('FightEventComponent', () => {
         new Error('test');
       })
     );
-    spyOn(component, 'toastOutputError');
+    spyOn(component, 'toastError');
 
-    component.callServiceAddBet(testBet1);
+    component.callServiceAddBet(testBet1, 1);
 
     expect(betService.placeBet).toHaveBeenCalled();
-    expect(component.toastOutputError).toHaveBeenCalled();
+    expect(component.toastError).toHaveBeenCalled();
   });
 
   it('should add toast error message', () => {
     spyOn(messageService, 'add');
 
-    component.toastOutputError(0);
+    component.toastError(0);
 
     expect(messageService.add).toHaveBeenCalled();
   });
@@ -239,7 +244,7 @@ describe('FightEventComponent', () => {
   it('should add toast success message', () => {
     spyOn(messageService, 'add');
 
-    component.toastOutputSuccess(0);
+    component.toastSuccess(0, BetPlacementType.BetPlacement);
 
     expect(messageService.add).toHaveBeenCalled();
   });
