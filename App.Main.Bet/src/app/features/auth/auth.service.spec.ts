@@ -239,7 +239,7 @@ describe('AuthService', () => {
     spyOn(authService, 'logIn').and.returnValue(asyncError(errorResponse));
 
     authService.logIn('user', 'password').subscribe({
-      next: (accessToken) => done.fail('expected on click event error'),
+      next: (errorResponse) => done.fail('expected on click event error'),
       error: (error) => {
         expect(error.message).toBe(
           'Http failure response for (unknown url): 404 Not Found'

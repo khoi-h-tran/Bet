@@ -94,7 +94,7 @@ export class FightEventComponent implements OnInit {
             ? this.callServiceAddBet(this.betPlacement, selectedEventIndex)
             : this.callServiceRemoveBet(this.betPlacement, selectedEventIndex);
         },
-        error: () => {},
+        // error: () => {},
       });
   }
 

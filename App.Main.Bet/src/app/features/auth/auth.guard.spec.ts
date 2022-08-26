@@ -84,7 +84,8 @@ describe('AuthGuard Pass', () => {
     guard = TestBed.inject(AuthGuard);
 
     spyOn(authService, 'clearAutoLogOut');
-    spyOn(guard, 'canActivate').and.callThrough();
+    // spyOn(guard, 'canActivate').and.callThrough();
+    spyOn(guard, 'canActivate').and.callFake;
     spyOn(store, 'dispatch').and.callThrough();
   });
 

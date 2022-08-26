@@ -203,10 +203,16 @@ describe('FightEventComponent', () => {
     }
   });
 
-  it('should onPlaceBet should create bet objects as expected', () => {
-    // Note: In test data, only robert wittaker has a bet placed, so we will only test this bet placement
+  it('onPlaceBet should create bet objects as expected', () => {
     component.onPlaceBet(0);
     expect(component.betPlacement).toEqual(testBet1);
+  });
+
+  it('callServiceAddBet() should be called through onPlaceBet()', () => {
+    spyOn(component, 'callServiceAddBet');
+    component.previousSelectedFighter[0] = 'testfighter';
+    component.onPlaceBet(0);
+    expect(component.callServiceAddBet).toHaveBeenCalled();
   });
 
   it('should callServiceAddBet', () => {
@@ -219,7 +225,7 @@ describe('FightEventComponent', () => {
     expect(component.toastSuccess).toHaveBeenCalled();
   });
 
-  it('should callServiceAddBet', () => {
+  it('should callServiceAddBet with error', () => {
     spyOn(betService, 'placeBet').and.returnValue(
       throwError(() => {
         new Error('test');
@@ -245,6 +251,39 @@ describe('FightEventComponent', () => {
     spyOn(messageService, 'add');
 
     component.toastSuccess(0, BetPlacementType.BetPlacement);
+
+    expect(messageService.add).toHaveBeenCalled();
+  });
+
+  it('should callServiceRemoveBet', () => {
+    spyOn(betService, 'removeBet').and.returnValue(of(placeBetReturn));
+    spyOn(component, 'toastSuccess');
+
+    component.callServiceRemoveBet(testBet1, 1);
+
+    expect(betService.removeBet).toHaveBeenCalled();
+    expect(component.toastSuccess).toHaveBeenCalled();
+  });
+
+  it('should callServiceRemoveBet', () => {
+    spyOn(betService, 'removeBet').and.returnValue(
+      throwError(() => {
+        new Error('test');
+      })
+    );
+
+    spyOn(component, 'toastError');
+
+    component.callServiceRemoveBet(testBet1, 1);
+
+    expect(betService.removeBet).toHaveBeenCalled();
+    expect(component.toastError).toHaveBeenCalled();
+  });
+
+  it('should add toast success message', () => {
+    spyOn(messageService, 'add');
+
+    component.toastSuccess(0, BetPlacementType.BetRemoval);
 
     expect(messageService.add).toHaveBeenCalled();
   });

@@ -8,7 +8,7 @@ import { BetPageComponent } from './bet-page.component';
 import { ufcTestDataTS } from 'src/app/shared/test-data/UFCEventsTestData';
 import { BetService } from './bet.service';
 import { HttpClient } from '@angular/common/http';
-import { asyncData } from 'src/app/shared/test-helpers/async-observable-helpers';
+// import { asyncData } from 'src/app/shared/test-helpers/async-observable-helpers';
 import { of } from 'rxjs';
 import { selectUFCEvents } from 'src/app/app-state/selectors/bet.selectors';
 import { retrievedUFCEvents } from 'src/app/app-state/actions/bet.actions';
@@ -29,7 +29,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { mockEventsWithBets } from 'src/app/shared/test-data/MockEventsWithBets';
 
-fdescribe('BetPageComponent', () => {
+describe('BetPageComponent', () => {
   let component: BetPageComponent;
   let fixture: ComponentFixture<BetPageComponent>;
   let store: MockStore;

@@ -77,14 +77,14 @@ export class AuthService {
    *
    * @param operation - name of the operation that failed
    */
-  private handleError<T>(operation: string) {
+  public handleError<T>(operation: string) {
     return (error: HttpErrorResponse): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
       // If a native error is caught, do not transform it. We only want to
       // transform response errors that are not wrapped in an `Error`.
       if (error.error instanceof Event) {
-        throw error.error;
+        // throw error.error;
       }
 
       const message = `${error.message}`;
