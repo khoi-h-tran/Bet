@@ -9,15 +9,31 @@ import { BetService } from './bet.service';
 import { IUFCEvents } from '../../shared/models/ufc-events.model';
 import * as ufcTestDataJSON from '../../shared/test-data/UFCEventsTestData.json';
 import { ufcTestDataTS } from '../../shared/test-data/UFCEventsTestData';
+import { MockUFCEventsDataSnapShot } from 'src/app/shared/test-data/MockDataSnapShotVal';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
+import { of } from 'rxjs';
+
 // Firebase
-import { ref, set, child, get, DataSnapshot } from 'firebase/database';
+// Firebase
+import {
+  getDatabase,
+  ref,
+  set,
+  child,
+  get,
+  DataSnapshot,
+  Query,
+} from 'firebase/database';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideDatabase, getDatabase } from '@angular/fire/database';
-import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { provideAuth, getAuth, Auth } from '@angular/fire/auth';
+import {
+  DatabaseReference,
+  Database,
+  provideDatabase,
+} from '@angular/fire/database';
+import { FirebaseApp, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import * as firebase from 'firebase/app';
 
 // environemnt file
@@ -25,17 +41,7 @@ import { environment } from '../../../environments/environment';
 
 import { LoginUserCredTestData } from 'src/app/shared/test-data/LoginUserCredentialsTestData';
 import { BetPlacementTestData } from 'src/app/shared/test-data/BetPlacementTestData';
-
-// const mockFirebaseApp: FirebaseApp = {
-//   name: '',
-//   options: {},
-//   automaticDataCollectionEnabled: false
-// }
-
-// const mockDatabase: Database = {
-//   app: mockFirebaseApp,
-//   type: 'database'
-// }
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 // const getDatabaseMock(app?: FirebaseApp | undefined, url?: string | undefined): Database => {
 
@@ -70,6 +76,12 @@ describe('BetService', () => {
 
     store = TestBed.inject(MockStore);
     spyOn(store, 'dispatch').and.callThrough();
+    spyOn(betService, 'getUFCEvents').and.callThrough();
+    spyOn(betService, 'getUsersBets').and.callThrough();
+    spyOn(betService, 'placeBet').and.callThrough();
+    spyOn(betService, 'removeBet').and.callThrough();
+    spyOn(betService, 'log').and.callThrough();
+    // spyOn(betService, 'handleError').and.callThrough();
   });
 
   it('should be created', () => {
@@ -77,12 +89,14 @@ describe('BetService', () => {
   });
 
   it('should call UFC Events (firebase call)', () => {
-    const betServiceSpy = spyOn(betService, 'getUFCEvents');
-
-    betService.getUFCEvents();
-
-    expect(betServiceSpy).toHaveBeenCalled();
+    betService.getUFCEvents().subscribe();
+    expect(betService.getUFCEvents).toHaveBeenCalled();
   });
+
+  // it('should handle error', () => {
+  //   betService.handleError('unit test operation');
+  //   expect(betService.handleError).toHaveBeenCalled();
+  // });
 
   // it('should return an error when the server returns a 404', (done: DoneFn) => {
   //   const errorResponse = new HttpErrorResponse({
@@ -94,7 +108,8 @@ describe('BetService', () => {
   //   httpClientSpy.get.and.returnValue(asyncError(errorResponse));
 
   //   betService.getUFCEvents().subscribe({
-  //     next: (ufcEvents) => done.fail('expected an error, not ufc events'),
+  //     next: (MockUFCEventsDataSnapShot) =>
+  //       done.fail('expected an error, not ufc events'),
   //     error: (error) => {
   //       expect(error.message).toContain('test 404 error');
   //       done();
@@ -112,7 +127,8 @@ describe('BetService', () => {
   //   httpClientSpy.get.and.returnValue(asyncError(errorResponse));
 
   //   betService.getUFCEvents().subscribe({
-  //     next: (ufcEvents) => done.fail('expected on click event error'),
+  //     next: (MockUFCEventsDataSnapShot) =>
+  //       done.fail('expected on click event error'),
   //     error: (error) => {
   //       expect(error.message).toBe(undefined);
   //       done();
@@ -121,18 +137,22 @@ describe('BetService', () => {
   // });
 
   it('should call getUserBets (firebase call)', () => {
-    const betServiceSpy = spyOn(betService, 'getUsersBets');
-
     betService.getUsersBets(LoginUserCredTestData.user.uid);
-
-    expect(betServiceSpy).toHaveBeenCalled();
+    expect(betService.getUsersBets).toHaveBeenCalled();
   });
 
   it('should call placeBet (firebase call)', () => {
-    const betServiceSpy = spyOn(betService, 'placeBet');
-
     betService.placeBet(BetPlacementTestData);
+    expect(betService.placeBet).toHaveBeenCalled();
+  });
 
-    expect(betServiceSpy).toHaveBeenCalled();
+  it('should call removeBet (firebase call)', () => {
+    betService.removeBet(BetPlacementTestData);
+    expect(betService.removeBet).toHaveBeenCalled();
+  });
+
+  it('should call log', () => {
+    betService.log('unit test log');
+    expect(betService.log).toHaveBeenCalled();
   });
 });

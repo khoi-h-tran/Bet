@@ -1,4 +1,5 @@
 import { DataSnapshot } from 'firebase/database';
+import { ufcTestDataTS } from './UFCEventsTestData';
 
 export const MockDataSnapShot = {
   ref: undefined,
@@ -7,6 +8,16 @@ export const MockDataSnapShot = {
   size: 0,
   val: function () {
     return MockDataSnapShotVal;
+  },
+};
+
+export const MockUFCEventsDataSnapShot = {
+  ref: undefined,
+  priority: null,
+  key: null,
+  size: 0,
+  val: function () {
+    return ufcTestDataTS;
   },
 };
 

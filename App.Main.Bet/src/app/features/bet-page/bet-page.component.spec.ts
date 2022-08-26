@@ -24,11 +24,12 @@ import { TabViewModule } from 'primeng/tabview';
 import { selectUserID } from 'src/app/app-state/selectors/user.selectors';
 import { LoginUserCredTestData } from 'src/app/shared/test-data/LoginUserCredentialsTestData';
 import { MockDataSnapShot } from 'src/app/shared/test-data/MockDataSnapShotVal';
+import { MockUFCEventsDataSnapShot } from 'src/app/shared/test-data/MockDataSnapShotVal';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { mockEventsWithBets } from 'src/app/shared/test-data/MockEventsWithBets';
 
-describe('BetPageComponent', () => {
+fdescribe('BetPageComponent', () => {
   let component: BetPageComponent;
   let fixture: ComponentFixture<BetPageComponent>;
   let store: MockStore;
@@ -92,7 +93,10 @@ describe('BetPageComponent', () => {
       .and.callThrough();
     spyOn(betService, 'getUsersBets').and.returnValue(of(MockDataSnapShot));
     // spyOn(betService, 'getUFCEvents').and.returnValue(of(ufcTestDataTS));
-    spyOn(betService, 'getUFCEvents');
+    // spyOn(betService, 'getUFCEvents');
+    spyOn(betService, 'getUFCEvents').and.returnValue(
+      of(MockUFCEventsDataSnapShot)
+    );
 
     fixture.detectChanges();
   });
