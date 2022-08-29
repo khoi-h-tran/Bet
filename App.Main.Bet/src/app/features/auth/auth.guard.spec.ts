@@ -60,8 +60,8 @@ describe('AuthGuard Pass', () => {
   let router: Router;
   let authService: AuthService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([])],
       providers: [
         AuthGuard,
@@ -76,7 +76,7 @@ describe('AuthGuard Pass', () => {
           ],
         }),
       ],
-    });
+    }).compileComponents();
 
     store = TestBed.inject(MockStore);
     router = TestBed.inject(Router);
@@ -84,8 +84,9 @@ describe('AuthGuard Pass', () => {
     guard = TestBed.inject(AuthGuard);
 
     spyOn(authService, 'clearAutoLogOut');
+    spyOn(router, 'createUrlTree');
     // spyOn(guard, 'canActivate').and.callThrough();
-    spyOn(guard, 'canActivate').and.callFake;
+    spyOn(guard, 'canActivate').and.callThrough();
     spyOn(store, 'dispatch').and.callThrough();
   });
 
@@ -93,10 +94,19 @@ describe('AuthGuard Pass', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should run canActivate', () => {
-    const navigateSpy = spyOn(router, 'createUrlTree');
+  it('should return a selection of access token', () => {
+    let accessTokenFromSelector: string = '';
 
-    let test = guard.canActivate(mockRoute, mockRouterState);
+    store
+      .select(selectAccessToken)
+      .subscribe((accessToken) => (accessTokenFromSelector = accessToken));
+    expect(accessTokenFromSelector).toEqual(MockIDTokenResult.token);
+  });
+
+  it('should run canActivate', () => {
+    // const navigateSpy = spyOn(router, 'createUrlTree');
+
+    guard.canActivate(mockRoute, mockRouterState);
 
     // expect(authService.clearAutoLogOut).toHaveBeenCalled();
     // expect(navigateSpy).toHaveBeenCalledWith(['/auth']);
