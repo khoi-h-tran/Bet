@@ -27,6 +27,12 @@ export class NavbarComponent implements OnInit {
         title: 'Statistics on your previous betting performance.',
         routerLink: ['/stats'],
       },
+      {
+        label: 'Logout',
+        icon: 'pi pi-fw pi-sign-out',
+        title: 'Logout',
+        routerLink: ['/auth'],
+      },
     ];
 
     this.activeItem = this.items[0];

@@ -29,7 +29,7 @@ describe('NavbarComponent', () => {
   });
 
   // Note: ink bar is the active tab selector
-  it('should create tab menu with 2 tabs (plus inkbar)', () => {
+  it('should create tab menu with 3 tabs (plus inkbar)', () => {
     //check tab menu exists
     const tabMenuElement: HTMLElement = fixture.nativeElement;
     const tabMenu = tabMenuElement.querySelector('p-tabmenu')!;
@@ -37,7 +37,7 @@ describe('NavbarComponent', () => {
 
     // check it has 3 tabs
     const tabMenuNav = tabMenuElement.querySelectorAll('.p-tabmenu-nav li');
-    expect(tabMenuNav.length).toEqual(3);
+    expect(tabMenuNav.length).toEqual(4);
   });
 
   it('should create Bet. tab, with correct text, icon, and tooltip', () => {

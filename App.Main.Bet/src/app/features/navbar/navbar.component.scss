@@ -18,19 +18,21 @@ p-tabmenu {
   display: grid;
   height: 100%;
   grid-column-start: 3; // starts at 1
-  grid-column-end: 11; // ends at 13
+  grid-column-end: 10; // ends at 13
   grid-row-start: 1;
   justify-items: right;
   align-items: end;
+  padding-right: 50px;
 }
 
 .betLogo {
   // TODO: grid-column-start: 3 breaks the link route
-  grid-column-start: 3;
+  grid-column-start: 4;
   grid-row-start: 1;
   align-self: center;
   height: fit-content;
   width: fit-content;
+  padding-left: 50px;
 }
 
 .betLogo img {
