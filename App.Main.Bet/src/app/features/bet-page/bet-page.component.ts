@@ -22,6 +22,7 @@ import {
   tap,
 } from 'rxjs';
 import { DataSnapshot } from 'firebase/database';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bet-page',
@@ -40,7 +41,11 @@ export class BetPageComponent implements OnInit {
   // So I createated a subject to trigger the store to dispatch any time this subject is updated
   subject = new Subject<IUFCEvents[]>();
 
-  constructor(private betService: BetService, private store: Store) {
+  constructor(
+    private betService: BetService,
+    private store: Store,
+    private router: Router
+  ) {
     // Updates the state
     this.subject.subscribe({
       next: (v) => {
@@ -168,12 +173,17 @@ export class BetPageComponent implements OnInit {
           );
         })
       )
-      .subscribe(() => {
-        // Let the subject know that we have modified the data
-        // We could not set the store to dispatch here to update state because it is already subscribing to the store to get the userID
-        // It would be a call to the store, within a call to the store (store-ception)
-        this.subject.next(this.modifiedUFCEventsData);
-      });
+      .subscribe(
+        () => {
+          // Let the subject know that we have modified the data
+          // We could not set the store to dispatch here to update state because it is already subscribing to the store to get the userID
+          // It would be a call to the store, within a call to the store (store-ception)
+          this.subject.next(this.modifiedUFCEventsData);
+        },
+        (error) => {
+          this.router.navigate(['/auth']);
+        }
+      );
   }
 
   // Sets the first tab open dynamically at run-time
