@@ -13,10 +13,18 @@
       <th pSortableColumn="username">
         Username <p-sortIcon field="username"></p-sortIcon>
       </th>
-      <th pSortableColumn="accuracy">
+      <th
+        pSortableColumn="accuracy"
+        pTooltip="% Correct Bets (in previous 3 events)"
+        tooltipPosition="top"
+      >
         Guess Accuracy <p-sortIcon field="accuracy"></p-sortIcon>
       </th>
-      <th pSortableColumn="countCorrectBets">
+      <th
+        pSortableColumn="countCorrectBets"
+        pTooltip="# Correct Guesses (in previous 3 events)"
+        tooltipPosition="top"
+      >
         Correct Guesses <p-sortIcon field="countCorrectBets"></p-sortIcon>
       </th>
     </tr>
