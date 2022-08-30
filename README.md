@@ -1,6 +1,6 @@
 <h1 align="center">Bet</h1>
 
-<p align="center">A web application allowing friends to bet on UFC events></p>
+<p align="center">A web application allowing friends to bet on UFC events</p>
 
 ## Links
 
