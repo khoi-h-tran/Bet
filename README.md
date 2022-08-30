@@ -45,6 +45,13 @@ Check out the Stats page to see how you rank among your friends
 
 ![image](https://user-images.githubusercontent.com/59266614/187509622-2d2932ba-f21d-4598-9323-b1344e06ab0f.png)
 
+## Unit Testing
+
+Code Coverage is >94%
+
+![image](https://user-images.githubusercontent.com/59266614/187519007-288a494a-ef26-4d48-b43d-6f7e4a1e92f4.png)
+![image](https://user-images.githubusercontent.com/59266614/187519074-078a44a3-2d2d-4e5f-8a81-5433a453fe00.png)
+
 ## Built With
 
 - Angular
