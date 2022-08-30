@@ -32,6 +32,11 @@ Change your bets at any time
 
 ![image](https://user-images.githubusercontent.com/59266614/187509985-a32a3c58-f4b0-4469-9e8a-ead42829a8d8.png)
 
+All bet data will be immediately updated in the database
+
+(each user is assigned a unique key and each bet is stored in a human-readable key)
+![image](https://user-images.githubusercontent.com/59266614/187515782-12de3e19-eccb-4cc3-b1ae-beb6697b7f77.png)
+
 Remove your bet at any time
 
 ![image](https://user-images.githubusercontent.com/59266614/187509452-d51f4a14-7ed6-4e88-93dd-14ed20d7c0c9.png)
